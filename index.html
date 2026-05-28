@@ -3,21 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>写真の旅 — Aoi</title>
+  <title>蒼 — AOI</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <style>
     :root {
-      --cream: #f5f2eb;
-      --ink: #1c1812;
+      --cream: #f4f1ea;
+      --ink: #1a1612;
       --warm-mid: #6b5d4f;
-      --warm-light: #c9b89e;
+      --warm-light: #c8b69c;
       --accent: #7a3b20;
-      --red: #c0392b;
-      --line: rgba(28,24,18,0.13);
+      --line: rgba(26,22,18,0.12);
+      --line-hover: rgba(26,22,18,0.25);
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -31,37 +30,50 @@
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; justify-content: space-between; align-items: center;
-      padding: 22px 52px;
-      transition: background 0.4s, padding 0.4s, border-color 0.4s;
+      padding: 24px 56px;
+      transition: background 0.4s, padding 0.3s, border-color 0.4s;
     }
     nav.scrolled {
-      background: var(--cream);
-      padding: 14px 52px;
+      background: rgba(244,241,234,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 15px 56px;
       border-bottom: 1px solid var(--line);
     }
     .nav-logo {
       font-family: 'Noto Serif JP', serif;
-      font-size: 18px; font-weight: 300;
-      letter-spacing: 0.25em; color: var(--ink); text-decoration: none;
+      font-size: 17px; font-weight: 300;
+      letter-spacing: 0.28em; color: var(--ink); text-decoration: none;
     }
-    .nav-links { display: flex; gap: 36px; list-style: none; }
-    .nav-links a {
-      font-size: 11px; letter-spacing: 0.2em;
+    .nav-center { display: flex; gap: 36px; list-style: none; }
+    .nav-center a {
+      font-size: 10.5px; letter-spacing: 0.22em;
       color: var(--ink); text-decoration: none;
-      opacity: 0.55; transition: opacity 0.2s;
+      opacity: 0.5; transition: opacity 0.2s;
     }
-    .nav-links a:hover { opacity: 1; }
+    .nav-center a:hover { opacity: 1; }
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+
+    .lang-btn {
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 10px; letter-spacing: 0.22em;
+      background: none; border: 1px solid var(--line-hover);
+      color: var(--ink); cursor: pointer;
+      padding: 5px 12px; transition: all 0.2s;
+      opacity: 0.6;
+    }
+    .lang-btn:hover { opacity: 1; border-color: var(--accent); color: var(--accent); }
 
     .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
 
     .slide {
       position: absolute; inset: 0; opacity: 0;
-      transition: opacity 1.6s ease;
+      transition: opacity 1.8s ease;
     }
     .slide.active { opacity: 1; }
     .slide img {
       width: 100%; height: 100%; object-fit: cover;
-      transform: scale(1.06); transition: transform 9s ease;
+      transform: scale(1.07); transition: transform 10s ease;
     }
     .slide.active img { transform: scale(1); }
 
@@ -69,41 +81,61 @@
       position: absolute; inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(12,8,4,0.2) 0%,
-        rgba(12,8,4,0.04) 45%,
-        rgba(12,8,4,0.62) 100%
+        rgba(10,6,2,0.18) 0%,
+        rgba(10,6,2,0.03) 42%,
+        rgba(10,6,2,0.68) 100%
       );
     }
 
     .hero-text {
-      position: absolute; bottom: 86px; left: 64px; color: #f5f2eb;
+      position: absolute; bottom: 96px; left: 68px; color: #f4f1ea;
     }
     .hero-kana {
       font-family: 'Noto Serif JP', serif;
-      font-size: 11px; letter-spacing: 0.35em;
-      opacity: 0.65; margin-bottom: 18px;
+      font-size: 11px; letter-spacing: 0.38em;
+      opacity: 0.62; margin-bottom: 20px;
     }
     .hero-title {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(44px, 6.5vw, 88px);
-      font-weight: 200; line-height: 1.25; letter-spacing: 0.05em;
+      font-size: clamp(46px, 6.8vw, 92px);
+      font-weight: 200; line-height: 1.22; letter-spacing: 0.04em;
     }
     .hero-title span { color: var(--warm-light); }
     .hero-sub {
-      margin-top: 20px; font-size: 13px; letter-spacing: 0.08em;
-      opacity: 0.6; max-width: 360px; line-height: 1.9;
+      margin-top: 22px; font-size: 13px; letter-spacing: 0.07em;
+      opacity: 0.58; max-width: 380px; line-height: 1.95;
     }
 
+    .slide-counter {
+      position: absolute; bottom: 100px; right: 68px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 13px; letter-spacing: 0.15em;
+      color: rgba(244,241,234,0.5);
+    }
+    .slide-counter strong { color: rgba(244,241,234,0.9); font-weight: 300; }
+
     .slide-dots {
-      position: absolute; bottom: 90px; right: 60px;
-      display: flex; gap: 10px;
+      position: absolute; bottom: 50px; left: 68px;
+      display: flex; gap: 8px; align-items: center;
     }
     .dot {
-      width: 28px; height: 1px;
-      background: rgba(245,242,235,0.3); cursor: pointer;
-      transition: background 0.3s, width 0.3s;
+      width: 24px; height: 1px;
+      background: rgba(244,241,234,0.28); cursor: pointer;
+      transition: background 0.3s, width 0.35s;
     }
-    .dot.active { width: 52px; background: rgba(245,242,235,0.85); }
+    .dot.active { width: 56px; background: rgba(244,241,234,0.82); }
+
+    .scroll-hint {
+      position: absolute; bottom: 44px; right: 68px;
+      font-size: 10px; letter-spacing: 0.3em;
+      color: rgba(244,241,234,0.38); text-transform: uppercase;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .scroll-hint::before {
+      content: ''; display: block;
+      width: 1px; height: 28px;
+      background: rgba(244,241,234,0.3);
+    }
 
     .strip-wrap {
       overflow: hidden;
@@ -112,54 +144,57 @@
     }
     .strip {
       display: flex; width: max-content;
-      animation: scrollStrip 40s linear infinite;
+      animation: scrollStrip 42s linear infinite;
     }
     .strip:hover { animation-play-state: paused; }
     @keyframes scrollStrip {
       from { transform: translateX(0); }
       to   { transform: translateX(-50%); }
     }
-    .strip-item { flex: none; width: 210px; height: 140px; overflow: hidden; }
+    .strip-item { flex: none; width: 200px; height: 132px; overflow: hidden; }
     .strip-item img {
       width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.82);
-      transition: filter 0.4s, transform 0.5s;
+      filter: saturate(0.75);
+      transition: filter 0.45s, transform 0.55s;
     }
-    .strip-item:hover img { filter: saturate(1.1); transform: scale(1.05); }
+    .strip-item:hover img { filter: saturate(1.1); transform: scale(1.06); }
 
     .intro-section {
-      padding: 80px 60px;
-      display: grid; grid-template-columns: 180px 1fr; gap: 80px;
+      padding: 88px 60px;
+      display: grid; grid-template-columns: 160px 1fr; gap: 88px;
       align-items: start;
       border-bottom: 1px solid var(--line);
     }
     .section-tag {
-      font-size: 10px; letter-spacing: 0.35em; text-transform: uppercase;
+      font-size: 9.5px; letter-spacing: 0.38em; text-transform: uppercase;
       color: var(--accent);
     }
     .intro-quote {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(22px, 2.8vw, 38px);
-      font-weight: 200; line-height: 1.75; letter-spacing: 0.04em;
+      font-size: clamp(23px, 2.9vw, 40px);
+      font-weight: 200; line-height: 1.78; letter-spacing: 0.03em;
     }
     .intro-quote em { font-style: normal; color: var(--warm-mid); }
 
-    .section-header {
-      padding: 80px 60px 0;
-      display: flex; align-items: flex-end; justify-content: space-between;
-      border-top: 1px solid var(--line); margin-top: 80px;
+    .journal-wrap {
+      padding: 0 0 80px;
+      border-bottom: 1px solid var(--line);
     }
-    .section-header .section-tag { margin-bottom: 16px; }
+    .section-header {
+      padding: 88px 60px 0;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .section-header .section-tag { margin-bottom: 14px; }
     .section-title {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(28px, 3.5vw, 46px);
-      font-weight: 200; line-height: 1.4; letter-spacing: 0.04em;
+      font-size: clamp(30px, 3.8vw, 50px);
+      font-weight: 200; line-height: 1.38; letter-spacing: 0.04em;
     }
     .section-title em { font-style: normal; color: var(--warm-mid); }
     .section-link {
-      font-size: 11px; letter-spacing: 0.2em;
+      font-size: 10.5px; letter-spacing: 0.22em;
       color: var(--ink); text-decoration: none;
-      opacity: 0.45; border-bottom: 1px solid currentColor;
+      opacity: 0.42; border-bottom: 1px solid currentColor;
       padding-bottom: 3px; white-space: nowrap;
       transition: opacity 0.2s;
     }
@@ -167,7 +202,7 @@
 
     .journal-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--line); margin-top: 48px;
+      gap: 1px; background: var(--line); margin-top: 50px;
     }
     .journal-card { background: var(--cream); position: relative; cursor: pointer; }
     .journal-card.large { grid-column: span 2; }
@@ -176,78 +211,121 @@
     .journal-card.large .card-image { aspect-ratio: 16/9; }
     .card-image img {
       width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.88);
-      transition: transform 0.7s ease, filter 0.5s;
+      filter: saturate(0.84);
+      transition: transform 0.75s ease, filter 0.5s;
     }
     .journal-card:hover .card-image img {
-      transform: scale(1.04); filter: saturate(1.05);
+      transform: scale(1.045); filter: saturate(1.06);
     }
 
-    .card-body { padding: 28px 32px 32px; }
-    .card-meta { display: flex; align-items: center; gap: 16px; margin-bottom: 14px; }
-    .card-date { font-size: 10px; letter-spacing: 0.18em; color: var(--warm-mid); }
-    .card-tag  { font-size: 10px; letter-spacing: 0.18em; color: var(--accent); }
+    .card-body { padding: 28px 34px 34px; }
+    .card-meta { display: flex; align-items: center; gap: 18px; margin-bottom: 15px; }
+    .card-date { font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid); }
+    .card-tag  { font-size: 9.5px; letter-spacing: 0.2em; color: var(--accent); }
     .card-title {
       font-family: 'Noto Serif JP', serif;
-      font-size: 20px; font-weight: 300; line-height: 1.6;
+      font-size: 19px; font-weight: 300; line-height: 1.65;
       letter-spacing: 0.03em; margin-bottom: 12px;
     }
     .journal-card.large .card-title { font-size: 27px; }
-    .card-desc { font-size: 13px; line-height: 1.95; color: var(--warm-mid); letter-spacing: 0.02em; }
+    .card-desc { font-size: 13px; line-height: 2; color: var(--warm-mid); letter-spacing: 0.02em; }
     .card-arrow {
-      display: inline-block; margin-top: 20px;
-      font-size: 18px; color: var(--warm-light);
+      display: inline-flex; align-items: center; margin-top: 22px;
+      font-size: 17px; color: var(--warm-light);
       transition: transform 0.3s;
     }
-    .journal-card:hover .card-arrow { transform: translateX(6px); }
+    .journal-card:hover .card-arrow { transform: translateX(7px); }
 
     .about-section {
       display: grid; grid-template-columns: 1fr 1fr;
-      gap: 1px; background: var(--line); margin-top: 80px;
+      gap: 1px; background: var(--line);
     }
-    .about-image { overflow: hidden; aspect-ratio: 3/4; }
+    .about-image { overflow: hidden; }
     .about-image img {
       width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.8);
+      filter: saturate(0.76);
+      display: block;
     }
     .about-body {
-      padding: 80px 60px;
+      padding: 88px 64px;
       display: flex; flex-direction: column; justify-content: center;
       background: var(--cream);
     }
-    .about-body .section-tag { margin-bottom: 22px; }
+    .about-body .section-tag { margin-bottom: 24px; }
     .about-body h2 {
       font-family: 'Noto Serif JP', serif;
-      font-size: clamp(30px, 3.5vw, 48px);
+      font-size: clamp(32px, 3.6vw, 50px);
       font-weight: 200; line-height: 1.6;
-      letter-spacing: 0.04em; margin-bottom: 32px;
+      letter-spacing: 0.04em; margin-bottom: 34px;
     }
+    .about-body h2 em { font-style: normal; color: var(--warm-mid); }
     .about-body p {
       font-size: 13.5px; line-height: 2.1;
-      color: var(--warm-mid); max-width: 420px;
-      margin-bottom: 16px; letter-spacing: 0.03em;
+      color: var(--warm-mid); max-width: 430px;
+      margin-bottom: 16px; letter-spacing: 0.025em;
     }
     .about-stats {
-      display: flex; gap: 40px;
-      margin-top: 40px; padding-top: 40px;
+      display: flex; gap: 44px;
+      margin-top: 44px; padding-top: 44px;
       border-top: 1px solid var(--line);
     }
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 44px; font-weight: 300; color: var(--accent); line-height: 1;
+      font-size: 46px; font-weight: 300; color: var(--accent); line-height: 1;
     }
     .stat-label {
-      font-size: 10px; letter-spacing: 0.2em;
-      color: var(--warm-mid); margin-top: 8px;
+      font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--warm-mid); margin-top: 9px;
+    }
+
+    .series-section {
+      padding: 88px 60px;
+      border-bottom: 1px solid var(--line);
+    }
+    .series-section .section-header {
+      padding: 0 0 50px; margin: 0;
+      border: none;
+    }
+    .series-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
+      background: var(--line);
+    }
+    .series-card {
+      background: var(--cream);
+      position: relative; overflow: hidden; cursor: pointer;
+    }
+    .series-image { overflow: hidden; aspect-ratio: 3/4; }
+    .series-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.72);
+      transition: transform 0.75s ease, filter 0.5s;
+    }
+    .series-card:hover .series-image img {
+      transform: scale(1.06); filter: saturate(1.0);
+    }
+    .series-info { padding: 22px 24px; }
+    .series-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 28px; font-weight: 300; color: var(--warm-light);
+      line-height: 1; margin-bottom: 12px;
+    }
+    .series-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 16px; font-weight: 300; line-height: 1.55;
+      letter-spacing: 0.03em; margin-bottom: 8px;
+    }
+    .series-count {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid);
     }
 
     .belt-wrap {
-      overflow: hidden; margin-top: 80px;
+      overflow: hidden;
       border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
     .belt {
       display: flex; width: max-content;
-      animation: scrollBelt 55s linear infinite;
+      animation: scrollBelt 58s linear infinite;
     }
     .belt:hover { animation-play-state: paused; }
     @keyframes scrollBelt {
@@ -257,226 +335,436 @@
     .belt-item { flex: none; width: 300px; height: 200px; overflow: hidden; }
     .belt-item img {
       width: 100%; height: 100%; object-fit: cover;
-      filter: grayscale(0.15) saturate(0.9);
+      filter: grayscale(0.12) saturate(0.88);
       transition: filter 0.4s;
     }
     .belt-item:hover img { filter: grayscale(0) saturate(1.15); }
 
     footer {
       border-top: 1px solid var(--line);
-      padding: 52px 60px;
+      padding: 56px 60px;
       display: flex; justify-content: space-between; align-items: center;
-      margin-top: 80px;
     }
     .footer-logo {
       font-family: 'Noto Serif JP', serif;
-      font-size: 17px; font-weight: 200; letter-spacing: 0.22em;
+      font-size: 17px; font-weight: 200; letter-spacing: 0.24em;
     }
-    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links { display: flex; gap: 30px; list-style: none; }
     .footer-links a {
-      font-size: 11px; letter-spacing: 0.2em;
+      font-size: 10.5px; letter-spacing: 0.2em;
       color: var(--ink); text-decoration: none;
-      opacity: 0.4; transition: opacity 0.2s;
+      opacity: 0.38; transition: opacity 0.2s;
     }
     .footer-links a:hover { opacity: 1; }
-    .footer-copy { font-size: 11px; color: var(--warm-mid); opacity: 0.5; }
+    .footer-copy { font-size: 10.5px; color: var(--warm-mid); opacity: 0.48; }
 
-    @media (max-width: 860px) {
+    [data-en] { display: none; }
+    [data-ja] { display: block; }
+    body.en [data-en] { display: block; }
+    body.en [data-ja] { display: none; }
+    body.en [data-en].inline { display: inline; }
+    body.en [data-ja].inline { display: none; }
+    [data-en].inline { display: none; }
+    [data-ja].inline { display: inline; }
+
+    @media (max-width: 900px) {
       nav, nav.scrolled { padding: 16px 24px; }
-      .nav-links { display: none; }
-      .hero-text { left: 24px; bottom: 60px; }
-      .slide-dots { right: 24px; }
-      .intro-section { padding: 52px 24px; grid-template-columns: 1fr; gap: 20px; }
-      .section-header { padding: 60px 24px 0; flex-direction: column; align-items: flex-start; gap: 18px; }
+      .nav-center { display: none; }
+      .hero-text { left: 26px; bottom: 64px; }
+      .slide-dots { left: 26px; }
+      .scroll-hint { right: 26px; }
+      .slide-counter { right: 26px; }
+      .intro-section { padding: 56px 24px; grid-template-columns: 1fr; gap: 20px; }
+      .section-header { padding: 64px 24px 0; flex-direction: column; align-items: flex-start; gap: 18px; }
+      .journal-wrap { padding: 0 0 60px; }
       .journal-grid { grid-template-columns: 1fr; }
       .journal-card.large { grid-column: span 1; }
       .about-section { grid-template-columns: 1fr; }
-      .about-body { padding: 48px 24px; }
-      footer { padding: 40px 24px; flex-direction: column; gap: 24px; text-align: center; }
+      .about-body { padding: 56px 28px; }
+      .series-section { padding: 56px 24px; }
+      .series-grid { grid-template-columns: repeat(2, 1fr); }
+      footer { padding: 44px 24px; flex-direction: column; gap: 26px; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAV -->
   <nav id="nav">
     <a href="#" class="nav-logo">蒼 — AOI</a>
-    <ul class="nav-links">
-      <li><a href="#journal">記録</a></li>
-      <li><a href="#series">シリーズ</a></li>
-      <li><a href="#about">について</a></li>
-      <li><a href="#contact">連絡</a></li>
+    <ul class="nav-center">
+      <li><a href="#journal"><span data-ja class="inline">記録</span><span data-en class="inline">Journal</span></a></li>
+      <li><a href="#series"><span data-ja class="inline">シリーズ</span><span data-en class="inline">Series</span></a></li>
+      <li><a href="#about"><span data-ja class="inline">について</span><span data-en class="inline">About</span></a></li>
+      <li><a href="#contact"><span data-ja class="inline">連絡</span><span data-en class="inline">Contact</span></a></li>
     </ul>
+    <div class="nav-right">
+      <button class="lang-btn" id="langBtn">EN</button>
+    </div>
   </nav>
 
   <section class="hero">
     <div class="slide active">
-      <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=85&w=1800&auto=format&fit=crop" alt="富士山と桜" />
+      <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=85&w=1800&auto=format&fit=crop" alt="" />
       <div class="slide-overlay"></div>
     </div>
     <div class="slide">
-      <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=85&w=1800&auto=format&fit=crop" alt="嵐山の竹林" />
+      <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=85&w=1800&auto=format&fit=crop" alt="" />
       <div class="slide-overlay"></div>
     </div>
     <div class="slide">
-      <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=85&w=1800&auto=format&fit=crop" alt="日本の森" />
+      <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=85&w=1800&auto=format&fit=crop" alt="" />
       <div class="slide-overlay"></div>
     </div>
     <div class="slide">
-      <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=85&w=1800&auto=format&fit=crop" alt="京都の秋" />
+      <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=85&w=1800&auto=format&fit=crop" alt="" />
       <div class="slide-overlay"></div>
     </div>
 
     <div class="hero-text">
-      <div class="hero-kana">写真の旅 — 沖縄 · 北海道</div>
+      <div class="hero-kana">
+        <span data-ja class="inline">写真の旅 — 沖縄 · 北海道</span>
+        <span data-en class="inline">A Photographic Journey — Okinawa · Hokkaido</span>
+      </div>
       <h1 class="hero-title">
-        光を<span>追</span>いながら、<br>
-        日本の<span>景色</span>を<br>
-        記録する
+        <span data-ja>
+          光を<span>追</span>いながら、<br>
+          日本の<span>景色</span>を<br>
+          記録する
+        </span>
+        <span data-en>
+          Chasing<span> light,</span><br>
+          recording<span> Japan's</span><br>
+          landscapes
+        </span>
       </h1>
-      <p class="hero-sub">山、森、海、古都。日本の四季と静寂の中で出会った瞬間を、一枚一枚丁寧に記録した個人アーカイブ。</p>
+      <p class="hero-sub">
+        <span data-ja class="inline">山、森、海、古都。日本の四季と静寂の中で出会った瞬間を、一枚一枚丁寧に記録した個人アーカイブ。</span>
+        <span data-en class="inline">Mountains, forests, sea, ancient cities. A personal archive of moments found in Japan's four seasons and silence.</span>
+      </p>
     </div>
 
+    <div class="slide-counter" id="slideCounter"><strong>01</strong> / 04</div>
     <div class="slide-dots" id="dots"></div>
+    <div class="scroll-hint">
+      <span data-ja class="inline">スクロール</span>
+      <span data-en class="inline">Scroll</span>
+    </div>
   </section>
 
-  <!-- STRIP -->
   <div class="strip-wrap">
     <div class="strip" id="strip"></div>
   </div>
 
   <div class="intro-section">
-    <div class="section-tag">Manifesto</div>
+    <div class="section-tag">
+      <span data-ja class="inline">宣言</span>
+      <span data-en class="inline">Manifesto</span>
+    </div>
     <p class="intro-quote">
-      すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。
+      <span data-ja class="inline">すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。</span>
+      <span data-en class="inline">Every frame is a small act of <em>paying attention</em>. A decision to stop, look, and remember. This journey is not about destination. It is about the <em>quality of noticing</em>.</span>
     </p>
   </div>
 
-  <!-- JOURNAL -->
-  <div id="journal">
+  <div id="journal" class="journal-wrap">
     <div class="section-header">
       <div>
         <div class="section-tag">Journal</div>
-        <h2 class="section-title">旅の<em>記録</em></h2>
+        <h2 class="section-title">
+          <span data-ja class="inline">旅の<em>記録</em></span>
+          <span data-en class="inline">Travel <em>Records</em></span>
+        </h2>
       </div>
-      <a href="#" class="section-link">すべての記録を見る →</a>
+      <a href="#" class="section-link">
+        <span data-ja class="inline">すべての記録を見る →</span>
+        <span data-en class="inline">View all records →</span>
+      </a>
     </div>
 
     <div class="journal-grid">
 
       <div class="journal-card large">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1400&auto=format&fit=crop" alt="富士山" />
+          <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1400&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.04.03</span>
-            <span class="card-tag"></span>
+            <span class="card-tag">
+              <span data-ja class="inline">富士山</span>
+              <span data-en class="inline">Mt. Fuji</span>
+            </span>
           </div>
-          <h3 class="card-title">夜明けの富士 — 河口湖から見た逆さ富士</h3>
-          <p class="card-desc">午前四時、湖面は鏡のように静まりかえっていた。霧の中から現れた逆さ富士は、まるで別世界への入り口のようだった。</p>
+          <h3 class="card-title">
+            <span data-ja class="inline">夜明けの富士 — 河口湖から見た逆さ富士</span>
+            <span data-en class="inline">Fuji at Dawn — The Inverted Reflection on Lake Kawaguchi</span>
+          </h3>
+          <p class="card-desc">
+            <span data-ja class="inline">午前四時、湖面は鏡のように静まりかえっていた。霧の中から現れた逆さ富士は、まるで別世界への入り口のようだった。</span>
+            <span data-en class="inline">At four in the morning, the lake was still as a mirror. Fuji emerged from the mist — an inverted gateway to another world.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
 
       <div class="journal-card">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" alt="京都の紅葉" />
+          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.11.18</span>
-            <span class="card-tag"></span>
+            <span class="card-tag">
+              <span data-ja class="inline">京都</span>
+              <span data-en class="inline">Kyoto</span>
+            </span>
           </div>
-          <h3 class="card-title">紅葉の嵐山 — 秋色に染まる古都</h3>
-          <p class="card-desc">朝の光の中、誰もいない嵐山の小道を歩いた。</p>
+          <h3 class="card-title">
+            <span data-ja class="inline">紅葉の嵐山 — 秋色に染まる古都</span>
+            <span data-en class="inline">Autumn Arashiyama — The Old Capital in Fall Colors</span>
+          </h3>
+          <p class="card-desc">
+            <span data-ja class="inline">朝の光の中、誰もいない嵐山の小道を歩いた。</span>
+            <span data-en class="inline">Walking the empty paths of Arashiyama in early morning light.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
 
       <div class="journal-card">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop" alt="竹林" />
+          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.10.05</span>
-            <span class="card-tag"></span>
+            <span class="card-tag">
+              <span data-ja class="inline">嵐山</span>
+              <span data-en class="inline">Arashiyama</span>
+            </span>
           </div>
-          <h3 class="card-title">竹林の小径 — 風が奏でる緑の音</h3>
-          <p class="card-desc">竹が揺れるたびに、光が踊り、静寂が動いた。</p>
+          <h3 class="card-title">
+            <span data-ja class="inline">竹林の小径 — 風が奏でる緑の音</span>
+            <span data-en class="inline">Bamboo Grove Path — The Sound of Green in the Wind</span>
+          </h3>
+          <p class="card-desc">
+            <span data-ja class="inline">竹が揺れるたびに、光が踊り、静寂が動いた。</span>
+            <span data-en class="inline">Each time the bamboo swayed, light danced and silence moved.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
 
       <div class="journal-card">
         <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="桜" />
+          <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.03.28</span>
-            <span class="card-tag"></span>
+            <span class="card-tag">
+              <span data-ja class="inline">東京</span>
+              <span data-en class="inline">Tokyo</span>
+            </span>
           </div>
-          <h3 class="card-title">上野公園の花見 — 散る前の一瞬</h3>
-          <p class="card-desc">ピンクの花びらが空に舞う。一年で最も美しい七日間。</p>
+          <h3 class="card-title">
+            <span data-ja class="inline">上野公園の花見 — 散る前の一瞬</span>
+            <span data-en class="inline">Hanami at Ueno Park — The Moment Before Falling</span>
+          </h3>
+          <p class="card-desc">
+            <span data-ja class="inline">ピンクの花びらが空に舞う。一年で最も美しい七日間。</span>
+            <span data-en class="inline">Pink petals floating skyward. The seven most beautiful days of the year.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
 
       <div class="journal-card">
         <div class="card-image">
-          <img src="https://minagasakinagasaki.jp/wp-content/themes/nagasaki-brand/images/front/band-pc-02.jpg" alt="雪景色" />
+          <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=800&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.01.12</span>
-            <span class="card-tag"></span>
+            <span class="card-tag">
+              <span data-ja class="inline">北海道</span>
+              <span data-en class="inline">Hokkaido</span>
+            </span>
           </div>
-                <h3 class="card-title">みながさきの風景 — 海と静寂の物語</h3>
-                <p class="card-desc">静かな街並みと柔らかな海風。みながさきに流れる穏やかな時間。</p>
-                <span class="card-arrow">→</span>
+          <h3 class="card-title">
+            <span data-ja class="inline">雪原の朝 — 北海道の白い静寂</span>
+            <span data-en class="inline">Morning on the Snowfield — White Silence in Hokkaido</span>
+          </h3>
+          <p class="card-desc">
+            <span data-ja class="inline">静かな雪原と柔らかな朝の光。北海道に流れる穏やかな時間。</span>
+            <span data-en class="inline">A quiet snowfield and soft morning light. The gentle pace of time in Hokkaido.</span>
+          </p>
+          <span class="card-arrow">→</span>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- ABOUT -->
   <div id="about" class="about-section">
     <div class="about-image">
-      <img src="https://res.klook.com/image/upload/c_crop,h_801,w_1280,x_0,y_25,z_0.6/w_1265,h_791,c_fill,q_85/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/cwjcyp5leryyuw466jdg.webp" alt="日本の風景" />
+      <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=80&w=1200&auto=format&fit=crop" alt="" />
     </div>
     <div class="about-body">
       <div class="section-tag">About</div>
-      <h2>写真で語る<br><em>日本の旅</em></h2>
-      <p>蒼（Aoi）と申します。沖縄と北海道を旅しながら活動する写真家・フロントエンド開発者です。日本の四季と自然を旅しながら、フィルムとデジタルで記録を続けています。</p>
-      <p>このサイトは、「最高傑作」のポートフォリオではなく、訪れた全ての場所と光が見せてくれた全てのものを正直に記録したアーカイブです。</p>
+      <h2>
+        <span data-ja class="inline">写真で語る<br><em>日本の旅</em></span>
+        <span data-en class="inline">Japan through<br><em>photography</em></span>
+      </h2>
+      <p>
+        <span data-ja class="inline">蒼（Aoi）と申します。沖縄と北海道を旅しながら活動する写真家・フロントエンド開発者です。日本の四季と自然を旅しながら、フィルムとデジタルで記録を続けています。</span>
+        <span data-en class="inline">My name is Aoi. I'm a photographer and frontend developer traveling between Okinawa and Hokkaido. I document Japan's seasons and nature on both film and digital.</span>
+      </p>
+      <p>
+        <span data-ja class="inline">このサイトは、「最高傑作」のポートフォリオではなく、訪れた全ての場所と光が見せてくれた全てのものを正直に記録したアーカイブです。</span>
+        <span data-en class="inline">This site is not a portfolio of masterworks — it is an honest archive of every place I've visited and everything the light showed me.</span>
+      </p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">47</div>
+          <div class="stat-label">
+            <span data-ja class="inline">都道府県</span>
+            <span data-en class="inline">Prefectures</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat-num">2,800+</div>
+          <div class="stat-label">
+            <span data-ja class="inline">写真</span>
+            <span data-en class="inline">Photographs</span>
+          </div>
+        </div>
+        <div>
+          <div class="stat-num">6</div>
+          <div class="stat-label">
+            <span data-ja class="inline">年間</span>
+            <span data-en class="inline">Years</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- BELT -->
+  <div id="series" class="series-section">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Series</div>
+        <h2 class="section-title">
+          <span data-ja class="inline">写真<em>シリーズ</em></span>
+          <span data-en class="inline">Photo <em>Series</em></span>
+        </h2>
+      </div>
+      <a href="#" class="section-link">
+        <span data-ja class="inline">全シリーズを見る →</span>
+        <span data-en class="inline">View all series →</span>
+      </a>
+    </div>
+    <div class="series-grid">
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">01</div>
+          <div class="series-name">
+            <span data-ja class="inline">山と霧</span>
+            <span data-en class="inline">Mountains & Mist</span>
+          </div>
+          <div class="series-count">
+            <span data-ja class="inline">32枚</span>
+            <span data-en class="inline">32 photographs</span>
+          </div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">02</div>
+          <div class="series-name">
+            <span data-ja class="inline">竹と光</span>
+            <span data-en class="inline">Bamboo & Light</span>
+          </div>
+          <div class="series-count">
+            <span data-ja class="inline">18枚</span>
+            <span data-en class="inline">18 photographs</span>
+          </div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">03</div>
+          <div class="series-name">
+            <span data-ja class="inline">秋の古都</span>
+            <span data-en class="inline">Ancient City, Autumn</span>
+          </div>
+          <div class="series-count">
+            <span data-ja class="inline">54枚</span>
+            <span data-en class="inline">54 photographs</span>
+          </div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">04</div>
+          <div class="series-name">
+            <span data-ja class="inline">海と夕暮れ</span>
+            <span data-en class="inline">Sea & Dusk</span>
+          </div>
+          <div class="series-count">
+            <span data-ja class="inline">27枚</span>
+            <span data-en class="inline">27 photographs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="belt-wrap">
     <div class="belt" id="belt"></div>
   </div>
 
-  <!-- FOOTER -->
-  <footer>
+  <footer id="contact">
     <div class="footer-logo">蒼 — 写真の旅</div>
     <ul class="footer-links">
-      <li><a href="#">記録</a></li>
-      <li><a href="#">シリーズ</a></li>
-      <li><a href="#">について</a></li>
+      <li><a href="#">
+        <span data-ja class="inline">記録</span>
+        <span data-en class="inline">Journal</span>
+      </a></li>
+      <li><a href="#">
+        <span data-ja class="inline">シリーズ</span>
+        <span data-en class="inline">Series</span>
+      </a></li>
+      <li><a href="#">
+        <span data-ja class="inline">について</span>
+        <span data-en class="inline">About</span>
+      </a></li>
       <li><a href="#">Instagram</a></li>
-      <li><a href="#">連絡</a></li>
+      <li><a href="#">
+        <span data-ja class="inline">連絡</span>
+        <span data-en class="inline">Contact</span>
+      </a></li>
     </ul>
-    <span class="footer-copy">© 蒼 Aoi 2026</span>
+    <span class="footer-copy">
+      <span data-ja class="inline">© 蒼 Aoi 2026</span>
+      <span data-en class="inline">© Aoi 2026. All rights reserved.</span>
+    </span>
   </footer>
 
   <script>
-
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 60);
@@ -484,6 +772,7 @@
 
     const slides = document.querySelectorAll('.slide');
     const dotsEl = document.getElementById('dots');
+    const counterEl = document.getElementById('slideCounter');
     let current = 0;
 
     slides.forEach((_, i) => {
@@ -493,65 +782,65 @@
       dotsEl.appendChild(d);
     });
 
+    function pad(n) { return n < 10 ? '0' + n : '' + n; }
+
     function goTo(n) {
       slides[current].classList.remove('active');
       dotsEl.children[current].classList.remove('active');
       current = n;
       slides[current].classList.add('active');
       dotsEl.children[current].classList.add('active');
+      counterEl.innerHTML = '<strong>' + pad(current + 1) + '</strong> / ' + pad(slides.length);
     }
-    setInterval(() => goTo((current + 1) % slides.length), 5500);
+
+    setInterval(() => goTo((current + 1) % slides.length), 5800);
+
+    const langBtn = document.getElementById('langBtn');
+    let isEn = false;
+
+    langBtn.addEventListener('click', () => {
+      isEn = !isEn;
+      document.body.classList.toggle('en', isEn);
+      langBtn.textContent = isEn ? 'JP' : 'EN';
+      document.documentElement.lang = isEn ? 'en' : 'ja';
+    });
 
     const stripSrcs = [
-      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=60&w=400&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=60&w=400&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=60&w=400&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=60&w=400&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=60&w=400&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1522383225653-ed111181a951?q=60&w=400&auto=format&fit=crop',
-      'https://minagasakinagasaki.jp/wp-content/themes/nagasaki-brand/images/front/band-pc-02.jpg',
-      'https://images.unsplash.com/photo-1578637387939-43c525550085?q=60&w=400&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1522383225653-ed111181a951?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1578637387939-43c525550085?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1466442929976-97f336a657be?q=55&w=420&auto=format&fit=crop',
     ];
 
     const strip = document.getElementById('strip');
     [...stripSrcs, ...stripSrcs].forEach(src => {
       const item = document.createElement('div');
       item.className = 'strip-item';
-      item.innerHTML = `<img src="${src}" alt="" loading="lazy" />`;
+      item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
       strip.appendChild(item);
     });
 
     const beltSrcs = [
-      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=60&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1466442929976-97f336a657be?q=60&w=600&auto=format&fit=crop',
-      'https://minagasakinagasaki.jp/wp-content/themes/nagasaki-brand/images/front/band-pc-02.jpg',
-      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=60&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=60&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=60&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1466442929976-97f336a657be?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=55&w=600&auto=format&fit=crop',
     ];
 
     const belt = document.getElementById('belt');
     [...beltSrcs, ...beltSrcs].forEach(src => {
       const item = document.createElement('div');
       item.className = 'belt-item';
-      item.innerHTML = `<img src="${src}" alt="" loading="lazy" />`;
+      item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
       belt.appendChild(item);
     });
-    
   </script>
 
-    <script type="module">
-    import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
-
-    const supabase = createClient(
-      'https://hwuuwypxssfztpacxjke.supabase.co',
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh3dXV3eXB4c3NmenRwYWN4amtlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4OTMzNDcsImV4cCI6MjA5NTQ2OTM0N30.X21WO_wyIi1RtwF-2vaIU2jAQgVcescI5pSrzSEpizw'
-    )
-
-    const { data, error } = await supabase
-      .select('*')
-
-    console.log(data)
-  </script>
 </body>
 </html>
