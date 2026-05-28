@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -63,9 +63,9 @@
       opacity: 0.6;
     }
     .lang-btn:hover {
-      opacity: 1;
-      border-color: var(--accent);
-      color: var(--accent);
+    opacity: 1;
+    border-color: var(--accent);
+    color: var(--accent);
     }
 
     .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
@@ -362,6 +362,9 @@
     .footer-links a:hover { opacity: 1; }
     .footer-copy { font-size: 10.5px; color: var(--warm-mid); opacity: 0.48; }
 
+    [data-en] { display: block; }
+    [data-ja] { display: none; }
+
     @media (max-width: 900px) {
       nav, nav.scrolled { padding: 16px 24px; }
       .nav-center { display: none; }
@@ -386,15 +389,15 @@
 <body>
 
   <nav id="nav">
-    <a href="#" class="nav-logo">蒼 — AOI</a>
+    <a href="/" class="nav-logo">蒼 — AOI</a>
     <ul class="nav-center">
-      <li><a href="#journal">記録</a></li>
-      <li><a href="#series">シリーズ</a></li>
-      <li><a href="#about">について</a></li>
-      <li><a href="#contact">連絡</a></li>
+      <li><a href="#journal"><span data-en>Journal</span></a></li>
+      <li><a href="#series"><span data-en>Series</span></a></li>
+      <li><a href="#about"><span data-en>About</span></a></li>
+      <li><a href="#contact"><span data-en>Contact</span></a></li>
     </ul>
     <div class="nav-right">
-      <a href="/en/en.html" class="lang-btn">EN</a>
+      <a href="/" style="font-size: 10px; letter-spacing: 0.22em; color: var(--ink); text-decoration: none; opacity: 0.6; border: 1px solid var(--line-hover); padding: 5px 12px; transition: all 0.2s;">JP</a>
     </div>
   </nav>
 
@@ -417,18 +420,26 @@
     </div>
 
     <div class="hero-text">
-      <div class="hero-kana">写真の旅 — 沖縄 · 北海道</div>
+      <div class="hero-kana">
+        <span data-en>A Photographic Journey — Okinawa · Hokkaido</span>
+      </div>
       <h1 class="hero-title">
-        光を<span>追</span>いながら、<br>
-        日本の<span>景色</span>を<br>
-        記録する
+        <span data-en>
+          Chasing<span> light,</span><br>
+          recording<span> Japan's</span><br>
+          landscapes
+        </span>
       </h1>
-      <p class="hero-sub">山、森、海、古都。日本の四季と静寂の中で出会った瞬間を、一枚一枚丁寧に記録した個人アーカイブ。</p>
+      <p class="hero-sub">
+        <span data-en>Mountains, forests, sea, ancient cities. A personal archive of moments found in Japan's four seasons and silence.</span>
+      </p>
     </div>
 
     <div class="slide-counter" id="slideCounter"><strong>01</strong> / 04</div>
     <div class="slide-dots" id="dots"></div>
-    <div class="scroll-hint">スクロール</div>
+    <div class="scroll-hint">
+      <span data-en>Scroll</span>
+    </div>
   </section>
 
   <div class="strip-wrap">
@@ -436,17 +447,23 @@
   </div>
 
   <div class="intro-section">
-    <div class="section-tag">宣言</div>
-    <p class="intro-quote">すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。</p>
+    <div class="section-tag">Manifesto</div>
+    <p class="intro-quote">
+      <span data-en>Every frame is a small act of <em>paying attention</em>. A decision to stop, look, and remember. This journey is not about destination. It is about the <em>quality of noticing</em>.</span>
+    </p>
   </div>
 
   <div id="journal" class="journal-wrap">
     <div class="section-header">
       <div>
         <div class="section-tag">Journal</div>
-        <h2 class="section-title">旅の<em>記録</em></h2>
+        <h2 class="section-title">
+          <span data-en>Travel <em>Records</em></span>
+        </h2>
       </div>
-      <a href="#" class="section-link">すべての記録を見る →</a>
+      <a href="#" class="section-link">
+        <span data-en>View all records →</span>
+      </a>
     </div>
 
     <div class="journal-grid">
@@ -458,10 +475,16 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.04.03</span>
-            <span class="card-tag">富士山</span>
+            <span class="card-tag">
+              <span data-en>Mt. Fuji</span>
+            </span>
           </div>
-          <h3 class="card-title">夜明けの富士 — 河口湖から見た逆さ富士</h3>
-          <p class="card-desc">午前四時、湖面は鏡のように静まりかえっていた。霧の中から現れた逆さ富士は、まるで別世界への入り口のようだった。</p>
+          <h3 class="card-title">
+            <span data-en>Fuji at Dawn — The Inverted Reflection on Lake Kawaguchi</span>
+          </h3>
+          <p class="card-desc">
+            <span data-en>At four in the morning, the lake was still as a mirror. Fuji emerged from the mist — an inverted gateway to another world.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -473,10 +496,16 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.11.18</span>
-            <span class="card-tag">京都</span>
+            <span class="card-tag">
+              <span data-en>Kyoto</span>
+            </span>
           </div>
-          <h3 class="card-title">紅葉の嵐山 — 秋色に染まる古都</h3>
-          <p class="card-desc">朝の光の中、誰もいない嵐山の小道を歩いた。</p>
+          <h3 class="card-title">
+            <span data-en>Autumn Arashiyama — The Old Capital in Fall Colors</span>
+          </h3>
+          <p class="card-desc">
+            <span data-en>Walking the empty paths of Arashiyama in early morning light.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -488,10 +517,16 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.10.05</span>
-            <span class="card-tag">嵐山</span>
+            <span class="card-tag">
+              <span data-en>Arashiyama</span>
+            </span>
           </div>
-          <h3 class="card-title">竹林の小径 — 風が奏でる緑の音</h3>
-          <p class="card-desc">竹が揺れるたびに、光が踊り、静寂が動いた。</p>
+          <h3 class="card-title">
+            <span data-en>Bamboo Grove Path — The Sound of Green in the Wind</span>
+          </h3>
+          <p class="card-desc">
+            <span data-en>Each time the bamboo swayed, light danced and silence moved.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -503,10 +538,16 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.03.28</span>
-            <span class="card-tag">東京</span>
+            <span class="card-tag">
+              <span data-en>Tokyo</span>
+            </span>
           </div>
-          <h3 class="card-title">上野公園の花見 — 散る前の一瞬</h3>
-          <p class="card-desc">ピンクの花びらが空に舞う。一年で最も美しい七日間。</p>
+          <h3 class="card-title">
+            <span data-en>Hanami at Ueno Park — The Moment Before Falling</span>
+          </h3>
+          <p class="card-desc">
+            <span data-en>Pink petals floating skyward. The seven most beautiful days of the year.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -518,10 +559,16 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.01.12</span>
-            <span class="card-tag">北海道</span>
+            <span class="card-tag">
+              <span data-en>Hokkaido</span>
+            </span>
           </div>
-          <h3 class="card-title">雪原の朝 — 北海道の白い静寂</h3>
-          <p class="card-desc">静かな雪原と柔らかな朝の光。北海道に流れる穏やかな時間。</p>
+          <h3 class="card-title">
+            <span data-en>Morning on the Snowfield — White Silence in Hokkaido</span>
+          </h3>
+          <p class="card-desc">
+            <span data-en>A quiet snowfield and soft morning light. The gentle pace of time in Hokkaido.</span>
+          </p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -535,73 +582,33 @@
     </div>
     <div class="about-body">
       <div class="section-tag">About</div>
-      <h2>写真で語る<br><em>日本の旅</em></h2>
-      <p>蒼（Aoi）と申します。沖縄と北海道を旅しながら活動する写真家・フロントエンド開発者です。日本の四季と自然を旅しながら、フィルムとデジタルで記録を続けています。</p>
-      <p>このサイトは、「最高傑作」のポートフォリオではなく、訪れた全ての場所と光が見せてくれた全てのものを正直に記録したアーカイブです。</p>
+      <h2>
+        <span data-en>Japan through<br><em>photography</em></span>
+      </h2>
+      <p>
+        <span data-en>My name is Aoi. I'm a photographer and frontend developer traveling between Okinawa and Hokkaido. I document Japan's seasons and nature on both film and digital.</span>
+      </p>
+      <p>
+        <span data-en>This site is not a portfolio of masterworks — it is an honest archive of every place I've visited and everything the light showed me.</span>
+      </p>
       <div class="about-stats">
         <div>
           <div class="stat-num">13</div>
-          <div class="stat-label">都道府県</div>
+          <div class="stat-label">
+            <span data-en>Prefectures</span>
+          </div>
         </div>
         <div>
           <div class="stat-num">100+</div>
-          <div class="stat-label">写真</div>
+          <div class="stat-label">
+            <span data-en>Photographs</span>
+          </div>
         </div>
         <div>
           <div class="stat-num">4</div>
-          <div class="stat-label">年間</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="series" class="series-section">
-    <div class="section-header">
-      <div>
-        <div class="section-tag">Series</div>
-        <h2 class="section-title">写真<em>シリーズ</em></h2>
-      </div>
-      <a href="#" class="section-link">全シリーズを見る →</a>
-    </div>
-    <div class="series-grid">
-      <div class="series-card">
-        <div class="series-image">
-          <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=75&w=600&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="series-info">
-          <div class="series-num">01</div>
-          <div class="series-name">山と霧</div>
-          <div class="series-count">32枚</div>
-        </div>
-      </div>
-      <div class="series-card">
-        <div class="series-image">
-          <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=75&w=600&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="series-info">
-          <div class="series-num">02</div>
-          <div class="series-name">竹と光</div>
-          <div class="series-count">18枚</div>
-        </div>
-      </div>
-      <div class="series-card">
-        <div class="series-image">
-          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=75&w=600&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="series-info">
-          <div class="series-num">03</div>
-          <div class="series-name">秋の古都</div>
-          <div class="series-count">54枚</div>
-        </div>
-      </div>
-      <div class="series-card">
-        <div class="series-image">
-          <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=75&w=600&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="series-info">
-          <div class="series-num">04</div>
-          <div class="series-name">海と夕暮れ</div>
-          <div class="series-count">27枚</div>
+          <div class="stat-label">
+            <span data-en>Years</span>
+          </div>
         </div>
       </div>
     </div>
@@ -614,13 +621,15 @@
   <footer id="contact">
     <div class="footer-logo">蒼 — 写真の旅</div>
     <ul class="footer-links">
-      <li><a href="#">記録</a></li>
-      <li><a href="#">シリーズ</a></li>
-      <li><a href="#">について</a></li>
+      <li><a href="#"><span data-en>Journal</span></a></li>
+      <li><a href="#"><span data-en>Series</span></a></li>
+      <li><a href="#"><span data-en>About</span></a></li>
       <li><a href="#">Instagram</a></li>
-      <li><a href="#">連絡</a></li>
+      <li><a href="#"><span data-en>Contact</span></a></li>
     </ul>
-    <span class="footer-copy">© 蒼 Aoi 2026</span>
+    <span class="footer-copy">
+      <span data-en>© Aoi 2026. All rights reserved.</span>
+    </span>
   </footer>
 
   <script>
