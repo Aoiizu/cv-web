@@ -61,11 +61,13 @@
       color: var(--ink); cursor: pointer;
       padding: 5px 12px; transition: all 0.2s;
       opacity: 0.6;
+      text-decoration: none;
+      display: inline-block;
     }
     .lang-btn:hover {
-    opacity: 1;
-    border-color: var(--accent);
-    color: var(--accent);
+      opacity: 1;
+      border-color: var(--accent);
+      color: var(--accent);
     }
 
     .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
@@ -93,21 +95,23 @@
 
     .hero-text {
       position: absolute; bottom: 96px; left: 68px; color: #f4f1ea;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
     }
     .hero-kana {
       font-family: 'Noto Serif JP', serif;
       font-size: 11px; letter-spacing: 0.38em;
-      opacity: 0.62; margin-bottom: 20px;
+      opacity: 1; margin-bottom: 20px;
     }
     .hero-title {
       font-family: 'Noto Serif JP', serif;
       font-size: clamp(46px, 6.8vw, 92px);
       font-weight: 200; line-height: 1.22; letter-spacing: 0.04em;
+      opacity: 1;
     }
     .hero-title span { color: var(--warm-light); }
     .hero-sub {
       margin-top: 22px; font-size: 13px; letter-spacing: 0.07em;
-      opacity: 0.58; max-width: 380px; line-height: 1.95;
+      opacity: 1; max-width: 380px; line-height: 1.95;
     }
 
     .slide-counter {
@@ -205,14 +209,23 @@
     .section-link:hover { opacity: 1; }
 
     .journal-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 1px; background: var(--line); margin-top: 50px;
+      display: grid; grid-template-columns: repeat(6, 1fr);
+      gap: 20px; margin-top: 50px;
     }
-    .journal-card { background: var(--cream); position: relative; cursor: pointer; }
-    .journal-card.large { grid-column: span 2; }
+    .journal-card { background: var(--cream); position: relative; cursor: pointer; overflow: hidden; }
+    .journal-card:nth-child(1) { grid-column: span 3; grid-row: span 2; }
+    .journal-card:nth-child(2) { grid-column: span 3; }
+    .journal-card:nth-child(3) { grid-column: span 3; }
+    .journal-card:nth-child(4) { grid-column: span 2; }
+    .journal-card:nth-child(5) { grid-column: span 2; }
 
-    .card-image { overflow: hidden; aspect-ratio: 4/3; }
-    .journal-card.large .card-image { aspect-ratio: 16/9; }
+    .card-image { overflow: hidden; width: 100%; height: 100%; }
+    .journal-card:nth-child(1) .card-image { aspect-ratio: 1/1.2; }
+    .journal-card:nth-child(2) .card-image { aspect-ratio: 2/1; }
+    .journal-card:nth-child(3) .card-image { aspect-ratio: 2/1; }
+    .journal-card:nth-child(4) .card-image { aspect-ratio: 1/1; }
+    .journal-card:nth-child(5) .card-image { aspect-ratio: 1/1; }
+
     .card-image img {
       width: 100%; height: 100%; object-fit: cover;
       filter: saturate(0.84);
@@ -222,19 +235,18 @@
       transform: scale(1.045); filter: saturate(1.06);
     }
 
-    .card-body { padding: 28px 34px 34px; }
-    .card-meta { display: flex; align-items: center; gap: 18px; margin-bottom: 15px; }
+    .card-body { padding: 28px 24px; }
+    .card-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
     .card-date { font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid); }
     .card-tag  { font-size: 9.5px; letter-spacing: 0.2em; color: var(--accent); }
     .card-title {
       font-family: 'Noto Serif JP', serif;
-      font-size: 19px; font-weight: 300; line-height: 1.65;
-      letter-spacing: 0.03em; margin-bottom: 12px;
+      font-size: 16px; font-weight: 300; line-height: 1.55;
+      letter-spacing: 0.03em; margin-bottom: 8px;
     }
-    .journal-card.large .card-title { font-size: 27px; }
-    .card-desc { font-size: 13px; line-height: 2; color: var(--warm-mid); letter-spacing: 0.02em; }
+    .card-desc { font-size: 12px; line-height: 1.8; color: var(--warm-mid); letter-spacing: 0.02em; }
     .card-arrow {
-      display: inline-flex; align-items: center; margin-top: 22px;
+      display: inline-flex; align-items: center; margin-top: 16px;
       font-size: 17px; color: var(--warm-light);
       transition: transform 0.3s;
     }
@@ -291,8 +303,7 @@
       border: none;
     }
     .series-grid {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-      background: var(--line);
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px;
     }
     .series-card {
       background: var(--cream);
@@ -362,9 +373,6 @@
     .footer-links a:hover { opacity: 1; }
     .footer-copy { font-size: 10.5px; color: var(--warm-mid); opacity: 0.48; }
 
-    [data-en] { display: block; }
-    [data-ja] { display: none; }
-
     @media (max-width: 900px) {
       nav, nav.scrolled { padding: 16px 24px; }
       .nav-center { display: none; }
@@ -375,8 +383,8 @@
       .intro-section { padding: 56px 24px; grid-template-columns: 1fr; gap: 20px; }
       .section-header { padding: 64px 24px 0; flex-direction: column; align-items: flex-start; gap: 18px; }
       .journal-wrap { padding: 0 0 60px; }
-      .journal-grid { grid-template-columns: 1fr; }
-      .journal-card.large { grid-column: span 1; }
+      .journal-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .journal-card { grid-column: span 1 !important; grid-row: span 1 !important; }
       .about-section { grid-template-columns: 1fr; }
       .about-body { padding: 56px 28px; }
       .series-section { padding: 56px 24px; }
@@ -389,15 +397,15 @@
 <body>
 
   <nav id="nav">
-    <a href="/" class="nav-logo">蒼 — AOI</a>
+    <a href="#" class="nav-logo">蒼 — AOI</a>
     <ul class="nav-center">
-      <li><a href="#journal"><span data-en>Journal</span></a></li>
-      <li><a href="#series"><span data-en>Series</span></a></li>
-      <li><a href="#about"><span data-en>About</span></a></li>
-      <li><a href="#contact"><span data-en>Contact</span></a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#series">Series</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <a href="/" style="font-size: 10px; letter-spacing: 0.22em; color: var(--ink); text-decoration: none; opacity: 0.6; border: 1px solid var(--line-hover); padding: 5px 12px; transition: all 0.2s;">JP</a>
+      <a href="/" class="lang-btn">JP</a>
     </div>
   </nav>
 
@@ -420,26 +428,18 @@
     </div>
 
     <div class="hero-text">
-      <div class="hero-kana">
-        <span data-en>A Photographic Journey — Okinawa · Hokkaido</span>
-      </div>
+      <div class="hero-kana">A Photographic Journey — Okinawa · Hokkaido</div>
       <h1 class="hero-title">
-        <span data-en>
-          Chasing<span> light,</span><br>
-          recording<span> Japan's</span><br>
-          landscapes
-        </span>
+        Chasing<span> light,</span><br>
+        recording<span> Japan's</span><br>
+        landscapes
       </h1>
-      <p class="hero-sub">
-        <span data-en>Mountains, forests, sea, ancient cities. A personal archive of moments found in Japan's four seasons and silence.</span>
-      </p>
+      <p class="hero-sub">Mountains, forests, sea, ancient cities. A personal archive of moments found in Japan's four seasons and silence.</p>
     </div>
 
     <div class="slide-counter" id="slideCounter"><strong>01</strong> / 04</div>
     <div class="slide-dots" id="dots"></div>
-    <div class="scroll-hint">
-      <span data-en>Scroll</span>
-    </div>
+    <div class="scroll-hint">Scroll</div>
   </section>
 
   <div class="strip-wrap">
@@ -448,43 +448,31 @@
 
   <div class="intro-section">
     <div class="section-tag">Manifesto</div>
-    <p class="intro-quote">
-      <span data-en>Every frame is a small act of <em>paying attention</em>. A decision to stop, look, and remember. This journey is not about destination. It is about the <em>quality of noticing</em>.</span>
-    </p>
+    <p class="intro-quote">Every frame is a small act of <em>paying attention</em>. A decision to stop, look, and remember. This journey is not about destination. It is about the <em>quality of noticing</em>.</p>
   </div>
 
   <div id="journal" class="journal-wrap">
     <div class="section-header">
       <div>
         <div class="section-tag">Journal</div>
-        <h2 class="section-title">
-          <span data-en>Travel <em>Records</em></span>
-        </h2>
+        <h2 class="section-title">Travel <em>Records</em></h2>
       </div>
-      <a href="#" class="section-link">
-        <span data-en>View all records →</span>
-      </a>
+      <a href="#" class="section-link">View all records →</a>
     </div>
 
     <div class="journal-grid">
 
-      <div class="journal-card large">
+      <div class="journal-card">
         <div class="card-image">
           <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1400&auto=format&fit=crop" alt="" />
         </div>
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.04.03</span>
-            <span class="card-tag">
-              <span data-en>Mt. Fuji</span>
-            </span>
+            <span class="card-tag">Mt. Fuji</span>
           </div>
-          <h3 class="card-title">
-            <span data-en>Fuji at Dawn — The Inverted Reflection on Lake Kawaguchi</span>
-          </h3>
-          <p class="card-desc">
-            <span data-en>At four in the morning, the lake was still as a mirror. Fuji emerged from the mist — an inverted gateway to another world.</span>
-          </p>
+          <h3 class="card-title">Fuji at Dawn</h3>
+          <p class="card-desc">At four in the morning, the lake was still as a mirror.</p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -496,16 +484,10 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.11.18</span>
-            <span class="card-tag">
-              <span data-en>Kyoto</span>
-            </span>
+            <span class="card-tag">Kyoto</span>
           </div>
-          <h3 class="card-title">
-            <span data-en>Autumn Arashiyama — The Old Capital in Fall Colors</span>
-          </h3>
-          <p class="card-desc">
-            <span data-en>Walking the empty paths of Arashiyama in early morning light.</span>
-          </p>
+          <h3 class="card-title">Autumn Arashiyama</h3>
+          <p class="card-desc">Walking the empty paths of Arashiyama in early morning light.</p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -517,16 +499,10 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2025.10.05</span>
-            <span class="card-tag">
-              <span data-en>Arashiyama</span>
-            </span>
+            <span class="card-tag">Arashiyama</span>
           </div>
-          <h3 class="card-title">
-            <span data-en>Bamboo Grove Path — The Sound of Green in the Wind</span>
-          </h3>
-          <p class="card-desc">
-            <span data-en>Each time the bamboo swayed, light danced and silence moved.</span>
-          </p>
+          <h3 class="card-title">Bamboo Grove Path</h3>
+          <p class="card-desc">Each time the bamboo swayed, light danced and silence moved.</p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -538,16 +514,10 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.03.28</span>
-            <span class="card-tag">
-              <span data-en>Tokyo</span>
-            </span>
+            <span class="card-tag">Tokyo</span>
           </div>
-          <h3 class="card-title">
-            <span data-en>Hanami at Ueno Park — The Moment Before Falling</span>
-          </h3>
-          <p class="card-desc">
-            <span data-en>Pink petals floating skyward. The seven most beautiful days of the year.</span>
-          </p>
+          <h3 class="card-title">Hanami at Ueno Park</h3>
+          <p class="card-desc">Pink petals floating skyward.</p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -559,16 +529,10 @@
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">2026.01.12</span>
-            <span class="card-tag">
-              <span data-en>Hokkaido</span>
-            </span>
+            <span class="card-tag">Hokkaido</span>
           </div>
-          <h3 class="card-title">
-            <span data-en>Morning on the Snowfield — White Silence in Hokkaido</span>
-          </h3>
-          <p class="card-desc">
-            <span data-en>A quiet snowfield and soft morning light. The gentle pace of time in Hokkaido.</span>
-          </p>
+          <h3 class="card-title">Morning on the Snowfield</h3>
+          <p class="card-desc">A quiet snowfield and soft morning light.</p>
           <span class="card-arrow">→</span>
         </div>
       </div>
@@ -582,33 +546,73 @@
     </div>
     <div class="about-body">
       <div class="section-tag">About</div>
-      <h2>
-        <span data-en>Japan through<br><em>photography</em></span>
-      </h2>
-      <p>
-        <span data-en>My name is Aoi. I'm a photographer and frontend developer traveling between Okinawa and Hokkaido. I document Japan's seasons and nature on both film and digital.</span>
-      </p>
-      <p>
-        <span data-en>This site is not a portfolio of masterworks — it is an honest archive of every place I've visited and everything the light showed me.</span>
-      </p>
+      <h2>Japan through<br><em>photography</em></h2>
+      <p>My name is Aoi. I'm a photographer and frontend developer traveling between Okinawa and Hokkaido. I document Japan's seasons and nature on both film and digital.</p>
+      <p>This site is not a portfolio of masterworks — it is an honest archive of every place I've visited and everything the light showed me.</p>
       <div class="about-stats">
         <div>
           <div class="stat-num">13</div>
-          <div class="stat-label">
-            <span data-en>Prefectures</span>
-          </div>
+          <div class="stat-label">Prefectures</div>
         </div>
         <div>
           <div class="stat-num">100+</div>
-          <div class="stat-label">
-            <span data-en>Photographs</span>
-          </div>
+          <div class="stat-label">Photographs</div>
         </div>
         <div>
           <div class="stat-num">4</div>
-          <div class="stat-label">
-            <span data-en>Years</span>
-          </div>
+          <div class="stat-label">Years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="series" class="series-section">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Series</div>
+        <h2 class="section-title">Photo <em>Series</em></h2>
+      </div>
+      <a href="#" class="section-link">View all series →</a>
+    </div>
+    <div class="series-grid">
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">01</div>
+          <div class="series-name">Mountains & Mist</div>
+          <div class="series-count">32 photographs</div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">02</div>
+          <div class="series-name">Bamboo & Light</div>
+          <div class="series-count">18 photographs</div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">03</div>
+          <div class="series-name">Ancient City, Autumn</div>
+          <div class="series-count">54 photographs</div>
+        </div>
+      </div>
+      <div class="series-card">
+        <div class="series-image">
+          <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=75&w=600&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="series-info">
+          <div class="series-num">04</div>
+          <div class="series-name">Sea & Dusk</div>
+          <div class="series-count">27 photographs</div>
         </div>
       </div>
     </div>
@@ -619,17 +623,15 @@
   </div>
 
   <footer id="contact">
-    <div class="footer-logo">蒼 — 写真の旅</div>
+    <div class="footer-logo">蒼 — Photography Journey</div>
     <ul class="footer-links">
-      <li><a href="#"><span data-en>Journal</span></a></li>
-      <li><a href="#"><span data-en>Series</span></a></li>
-      <li><a href="#"><span data-en>About</span></a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">Series</a></li>
+      <li><a href="#">About</a></li>
       <li><a href="#">Instagram</a></li>
-      <li><a href="#"><span data-en>Contact</span></a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
-    <span class="footer-copy">
-      <span data-en>© Aoi 2026. All rights reserved.</span>
-    </span>
+    <span class="footer-copy">© Aoi 2026. All rights reserved.</span>
   </footer>
 
   <script>
