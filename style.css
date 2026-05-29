@@ -45,6 +45,12 @@
     font-weight: 400;
    }
 
+   .nav-logo,
+    .nav-center a,
+    .lang-btn {
+      text-shadow: 0 1px 6px rgba(0,0,0,0.45);
+    }
+
     .nav-center a:hover { opacity: 1; }
     .nav-right { display: flex; align-items: center; gap: 18px; }
 
@@ -78,11 +84,10 @@
     .slide.active img { transform: scale(1); }
 
     .slide-overlay {
-      position: absolute; inset: 0;
       background: linear-gradient(
         to bottom,
-        rgba(10,6,2,0.18) 0%,
-        rgba(10,6,2,0.03) 42%,
+        rgba(10,6,2,0.45) 0%,
+        rgba(10,6,2,0.12) 42%,
         rgba(10,6,2,0.68) 100%
       );
     }
