@@ -1,51 +1,30 @@
 import { supabase } from './supabase.js'
 
-async function loadJournals() {
+const uploadBtn = document.getElementById('upload-btn')
 
-  const { data, error } = await supabase
+uploadBtn.addEventListener('click', async () => {
+
+  const title = document.getElementById('title').value
+  const description = document.getElementById('description').value
+  const content = document.getElementById('content').value
+  const image = document.getElementById('image').value
+
+  const { error } = await supabase
     .from('journals')
-    .select('*')
-    .order('created_at', { ascending: false })
+    .insert([
+      {
+        title,
+        description,
+        content,
+        image
+      }
+    ])
 
   if (error) {
     console.error(error)
     return
   }
 
-  const container = document.getElementById('journal-grid')
+  location.reload()
 
-  data.forEach(post => {
-
-    container.innerHTML += `
-
-      <div class="journal-card">
-
-        <div class="card-image">
-          <img src="${post.image}" alt="">
-        </div>
-
-        <div class="card-body">
-
-          <div class="card-meta">
-            <p class="card-tag">JOURNAL</p>
-          </div>
-
-          <h3 class="card-title">
-            ${post.title}
-          </h3>
-
-          <p class="card-desc">
-            ${post.description}
-          </p>
-
-        </div>
-
-      </div>
-
-    `
-
-  })
-
-}
-
-loadJournals()
+})
