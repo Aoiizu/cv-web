@@ -39,10 +39,11 @@
     .nav-center { display: flex; gap: 36px; list-style: none; }
 
     .nav-center a {
-      font-size: 10.5px; letter-spacing: 0.22em;
-      color: var(--ink); text-decoration: none;
-      opacity: 0.9; transition: opacity 0.2s;
-    }
+    font-size: 10.5px; letter-spacing: 0.22em;
+    color: var(--ink); text-decoration: none;
+    opacity: 1; transition: opacity 0.2s;
+    font-weight: 400;
+   }
 
     .nav-center a:hover { opacity: 1; }
     .nav-right { display: flex; align-items: center; gap: 18px; }
