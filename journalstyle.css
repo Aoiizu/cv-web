@@ -1,0 +1,128 @@
+    :root {
+      --cream: #f4f1ea;
+      --ink: #1a1612;
+      --warm-mid: #6b5d4f;
+      --warm-light: #c8b69c;
+      --accent: #7a3b20;
+      --line: rgba(26,22,18,0.12);
+      --line-hover: rgba(26,22,18,0.25);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'Noto Sans JP', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 56px;
+      transition: all 0.4s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(244,241,234,0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 16px 56px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo,
+    .nav-center a,
+    .lang-btn {
+      color: rgba(244,241,234,0.95);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav.scrolled .nav-logo,
+    nav.scrolled .nav-center a,
+    nav.scrolled .lang-btn {
+      color: var(--ink);
+    }
+
+    .nav-logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 17px;
+      letter-spacing: 0.28em;
+    }
+
+    .nav-center {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .journal-wrap {
+    padding: 80px 60px;
+    }
+
+    .journal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 50px;
+    }
+
+    .journal-card {
+    background: var(--cream);
+    overflow: hidden;
+    border: 1px solid var(--line);
+    }
+
+    .card-image {
+    aspect-ratio: 4/5;
+    overflow: hidden;
+    }
+
+    .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+    }
+
+    .journal-card:hover .card-image img {
+    transform: scale(1.04);
+    }
+
+    .card-body {
+    padding: 24px;
+    }
+
+    .card-tag {
+    font-size: 9px;
+    letter-spacing: 0.24em;
+    color: var(--accent);
+    margin-bottom: 14px;
+    }
+
+    .card-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 20px;
+    font-weight: 300;
+    line-height: 1.5;
+    margin-bottom: 12px;
+    }
+
+    .card-desc {
+    font-size: 12px;
+    line-height: 2;
+    color: var(--warm-mid);
+    }

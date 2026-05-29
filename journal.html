@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AOI — Journal</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@200;300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="journalstyle.css" />
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="index.html" class="nav-logo">蒼 — AOI</a>
+
+    <ul class="nav-center">
+      <li><a href="#">Journal</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="#" class="lang-btn">JP</a>
+    </div>
+  </nav>
+
+  <section class="journal-hero">
+    <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1974&auto=format&fit=crop" alt="">
+
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="hero-date">06 · 12 · 2026</p>
+
+      <h1 class="hero-title">
+        The Quiet Glow <br>
+        of Evening Streets
+      </h1>
+
+      <p class="hero-desc">
+        A visual journal documenting silence, movement, rain, and fleeting light between urban alleys and distant conversations.
+      </p>
+    </div>
+  </section>
+
+ <main class="journal-layout">
+
+  <section class="journal-wrap">
+
+    <div class="section-header">
+      <div>
+        <p class="section-tag">Journal Archive</p>
+
+        <h2 class="section-title">
+          Visual memories and written atmosphere.
+        </h2>
+      </div>
+    </div>
+
+    <div class="journal-grid" id="journal-grid"></div>
+
+  </section>
+
+</main>
+
+  <footer>
+    <div class="footer-logo">蒼 — AOI</div>
+    <p class="footer-copy">VISUAL JOURNAL ARCHIVE</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+  </script>
+<script type="module" src="journal.js"></script>
+</body>
+</html>
