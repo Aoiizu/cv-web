@@ -37,11 +37,13 @@
       letter-spacing: 0.28em; color: var(--ink); text-decoration: none;
     }
     .nav-center { display: flex; gap: 36px; list-style: none; }
+
     .nav-center a {
       font-size: 10.5px; letter-spacing: 0.22em;
       color: var(--ink); text-decoration: none;
-      opacity: 0.5; transition: opacity 0.2s;
+      opacity: 0.9; transition: opacity 0.2s;
     }
+
     .nav-center a:hover { opacity: 1; }
     .nav-right { display: flex; align-items: center; gap: 18px; }
 
@@ -51,12 +53,12 @@
       background: none; border: 1px solid var(--line-hover);
       color: var(--ink); cursor: pointer;
       padding: 5px 12px; transition: all 0.2s;
-      opacity: 0.6;
+      opacity: 1;
       text-decoration: none;
       display: inline-block;
     }
     .lang-btn:hover {
-      opacity: 1;
+      opacity: 1.2;
       border-color: var(--accent);
       color: var(--accent);
     }
