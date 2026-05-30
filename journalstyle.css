@@ -188,6 +188,30 @@
     transition: transform 0.3s;
   }
 
+  .card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+}
+
+.delete-btn {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid rgba(192, 57, 43, 0.3);
+  color: #c0392b;
+  padding: 4px 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.delete-btn:hover {
+  background: #c0392b;
+  color: var(--cream);
+}
+
   .journal-card:hover .card-arrow { transform: translateX(6px); }
 
   .upload-panel {

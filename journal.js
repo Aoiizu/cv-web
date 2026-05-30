@@ -1,7 +1,14 @@
-import { supabase } from './supabase.js'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const supabase = createClient(
+  'https://hwuuwypxssfztpacxjke.supabase.co',
+  'your-full-anon-key-here'
+)
 
 const uploadPanel = document.getElementById('upload-panel')
 uploadPanel.style.display = 'none'
+
+let isAdmin = false
 
 const adminBtn = document.createElement('button')
 adminBtn.textContent = 'Admin'
@@ -15,9 +22,11 @@ adminBtn.addEventListener('click', async () => {
   if (error) {
     alert('Wrong credentials')
   } else {
+    isAdmin = true
     uploadPanel.style.display = 'flex'
     adminBtn.style.display = 'none'
     uploadPanel.scrollIntoView({ behavior: 'smooth' })
+    loadJournals()
   }
 })
 
@@ -83,12 +92,27 @@ async function loadJournals() {
         </div>
         <h3 class="card-title">${post.title}</h3>
         <p class="card-desc">${post.description}</p>
-        <span class="card-arrow">→</span>
+        <div class="card-footer">
+          <span class="card-arrow">→</span>
+          ${isAdmin ? `<button class="delete-btn" data-id="${post.id}">Delete</button>` : ''}
+        </div>
       </div>
     `
-    card.addEventListener('click', () => {
-      window.location.href = `/journal-post.html?id=${post.id}`
-    })
+
+    if (isAdmin) {
+      card.querySelector('.delete-btn').addEventListener('click', async (e) => {
+        e.stopPropagation()
+        if (!confirm('Delete this entry?')) return
+        const { error } = await supabase.from('journals').delete().eq('id', post.id)
+        if (error) { alert(error.message); return }
+        loadJournals()
+      })
+    } else {
+      card.addEventListener('click', () => {
+        window.location.href = `/journal-post.html?id=${post.id}`
+      })
+    }
+
     container.appendChild(card)
   })
 }
