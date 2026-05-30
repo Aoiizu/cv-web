@@ -133,6 +133,14 @@
       margin-top: 22px; font-size: 13px; letter-spacing: 0.07em;
       opacity: 1; max-width: 380px; line-height: 1.95;
     }
+    .hero-right {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.35;
+    mix-blend-mode: multiply;
+   }
 
     .slide-counter {
       position: absolute; bottom: 100px; right: 68px;
