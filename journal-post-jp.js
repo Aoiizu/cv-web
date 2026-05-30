@@ -1,10 +1,5 @@
 import { supabase } from './supabase.js'
 
-const supabase = createClient(
-  'https://hwuuwypxssfztpacxjke.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc...'
-)
-
 async function loadPost() {
   const params = new URLSearchParams(window.location.search)
   const id = params.get('id')
