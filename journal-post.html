@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AOI — Journal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="journalstyle.css" />
+  <style>
+    .post-hero-img {
+      width: 100%; height: 60vh;
+      object-fit: cover; display: block;
+    }
+    .post-body {
+      max-width: 720px; margin: 0 auto;
+      padding: 60px 40px 120px;
+    }
+    .post-meta {
+      display: flex; gap: 16px; margin-bottom: 24px;
+    }
+    .post-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 4vw, 52px);
+      font-weight: 200; line-height: 1.4;
+      letter-spacing: 0.03em; margin-bottom: 32px;
+    }
+    .post-content {
+      font-size: 15px; line-height: 2.1;
+      color: var(--warm-mid); letter-spacing: 0.03em;
+      white-space: pre-wrap;
+    }
+    .back-link {
+      display: inline-block; margin-bottom: 48px;
+      font-size: 11px; letter-spacing: 0.22em;
+      color: var(--ink); text-decoration: none;
+      opacity: 0.5; border-bottom: 1px solid currentColor;
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <nav id="nav">
+    <a href="/index.html" class="nav-logo">蒼 — AOI</a>
+    <div class="nav-right">
+      <a href="/journal.html" class="lang-btn">JP</a>
+    </div>
+  </nav>
+
+  <img id="post-img" class="post-hero-img" src="" alt="" />
+
+  <div class="post-body">
+    <a href="/enjournal.html" class="back-link">← Back to Journal</a>
+    <div class="post-meta">
+      <span class="card-date" id="post-date"></span>
+      <span class="card-tag" id="post-location"></span>
+    </div>
+    <h1 class="post-title" id="post-title"></h1>
+    <p class="post-content" id="post-content"></p>
+  </div>
+
+  <script>
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60)
+    })
+  </script>
+  <script type="module" src="journal-post.js"></script>
+</body>
+</html>
