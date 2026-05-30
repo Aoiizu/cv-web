@@ -1,10 +1,5 @@
 import { supabase } from './supabase.js'
 
-const supabase = createClient(
-  'https://hwuuwypxssfztpacxjke.supabase.co',
-  'your-full-anon-key-here'
-)
-
 const uploadPanel = document.getElementById('upload-panel')
 uploadPanel.style.display = 'none'
 
