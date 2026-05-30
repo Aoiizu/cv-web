@@ -1,4 +1,9 @@
-import { supabase } from './supabase.js'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const supabase = createClient(
+  'https://hwuuwypxssfztpacxjke.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc...'
+)
 
 async function loadPost() {
   const params = new URLSearchParams(window.location.search)
@@ -25,7 +30,5 @@ async function loadPost() {
   document.getElementById('post-title').textContent = data.title_jp || data.title
   document.getElementById('post-content').textContent = data.content_jp || data.content
 }
-
-<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com;"></meta>
 
 loadPost()
