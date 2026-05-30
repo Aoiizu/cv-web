@@ -2,7 +2,13 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   root: '.',
+  esbuild: {
+    supported: {
+      'dynamic-import': true
+    }
+  },
   build: {
+    target: 'es2020',
     rollupOptions: {
       input: {
         main: 'index.html',
