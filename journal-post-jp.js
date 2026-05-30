@@ -26,4 +26,6 @@ async function loadPost() {
   document.getElementById('post-content').textContent = data.content_jp || data.content
 }
 
+<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com;"></meta>
+
 loadPost()
