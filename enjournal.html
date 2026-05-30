@@ -3,87 +3,61 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>AOI — Journal</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@200;300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="journalstyle.css" />
 </head>
-
 <body>
 
   <nav id="nav">
-
-    <a href="index.html" class="nav-logo">
-      蒼 — AOI
-    </a>
-
+    <a href="/en.html" class="nav-logo">蒼 — AOI</a>
     <ul class="nav-center">
       <li><a href="/journal-en.html">Journal</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
+      <li><a href="/en.html#about">About</a></li>
+      <li><a href="/en.html#contact">Contact</a></li>
     </ul>
-
     <div class="nav-right">
       <a href="/journal.html" class="lang-btn">JP</a>
     </div>
-
   </nav>
 
+  <div class="journal-hero">
+    <div class="journal-hero-inner">
+      <p class="section-tag">Journal Archive</p>
+      <h1 class="journal-hero-title">Visual <em>memories</em><br>and writing.</h1>
+      <p class="journal-hero-sub">A personal record of every place, every light, every moment worth keeping.</p>
+    </div>
+    <div class="journal-hero-line"></div>
+  </div>
+
   <main class="journal-layout">
-
-    <section class="journal-wrap">
-
-      <div class="section-header">
-
-        <div>
-
-          <p class="section-tag">
-            JOURNAL ARCHIVE
-          </p>
-
-          <h2 class="section-title">
-            Visual memories and<br>
-            atmospheric writing.
-          </h2>
-
-        </div>
-
-      </div>
-
-      <div class="journal-grid" id="journal-grid"></div>
-
-    </section>
-
+    <div class="journal-grid" id="journal-grid"></div>
   </main>
 
-  <footer>
-
-    <div class="footer-logo">
-      蒼 — AOI
+  <div class="upload-panel" id="upload-panel">
+    <div class="upload-panel-header">
+      <p class="section-tag">New Entry</p>
+      <h2 class="upload-title">Add Journal</h2>
     </div>
+    <input type="text" id="title" placeholder="Title" />
+    <input type="text" id="location" placeholder="Location (e.g. Kyoto, 京都)" />
+    <textarea id="description" placeholder="Short description"></textarea>
+    <textarea id="content" placeholder="Journal content"></textarea>
+    <input type="text" id="image" placeholder="Image URL" />
+    <button id="upload-btn">Publish →</button>
+  </div>
 
-    <p class="footer-copy">
-      VISUAL JOURNAL ARCHIVE
-    </p>
-
+  <footer id="contact">
+    <div class="footer-logo">蒼 — AOI</div>
+    <p class="footer-copy">© Aoi 2026. All rights reserved.</p>
   </footer>
 
   <script>
     const nav = document.getElementById('nav');
-
     window.addEventListener('scroll', () => {
-
-      if (window.scrollY > 60) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     });
   </script>
 

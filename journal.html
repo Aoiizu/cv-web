@@ -3,107 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <title>蒼 — AOI Journal</title>
-
+  <title>蒼 — 記録</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400&family=Noto+Serif+JP:wght@200;300;400&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="journalstyle.css" />
 </head>
-
 <body>
 
   <nav id="nav">
-
-    <a href="index.html" class="nav-logo">
-      蒼 — AOI
-    </a>
-
+    <a href="/index.html" class="nav-logo">蒼 — AOI</a>
     <ul class="nav-center">
       <li><a href="/journal.html">記録</a></li>
-      <li><a href="#about">について</a></li>
-      <li><a href="#contact">連絡</a></li>
+      <li><a href="/index.html#about">について</a></li>
+      <li><a href="/index.html#contact">連絡</a></li>
     </ul>
-
     <div class="nav-right">
-      <a href="/en.html" class="lang-btn">EN</a>
+      <a href="/journal-en.html" class="lang-btn">EN</a>
     </div>
-
   </nav>
 
+  <div class="journal-hero">
+    <div class="journal-hero-inner">
+      <p class="section-tag">記録アーカイブ</p>
+      <h1 class="journal-hero-title">視覚的な<em>記憶</em>と<br>言葉の記録。</h1>
+      <p class="journal-hero-sub">訪れたすべての場所、すべての光、すべての瞬間を記した個人アーカイブ。</p>
+    </div>
+    <div class="journal-hero-line"></div>
+  </div>
+
   <main class="journal-layout">
-
-    <section class="journal-wrap">
-
-      <div class="section-header">
-
-        <div>
-
-            <section class="upload-panel">
-
-            <input type="text" id="title" placeholder="Title">
-
-            <textarea id="description" placeholder="Description"></textarea>
-
-            <textarea id="content" placeholder="Journal content"></textarea>
-
-            <input type="text" id="image" placeholder="Image URL">
-
-            <button id="upload-btn">
-                Publish Journal
-            </button>
-
-            </section>
-
-          <p class="section-tag">
-            記録保管庫
-          </p>
-
-          <h2 class="section-title">
-            視覚的な記憶と、<br>
-            雰囲気を残す文章。
-          </h2>
-
-        </div>
-
-      </div>
-
-      <div class="journal-grid" id="journal-grid"></div>
-
-    </section>
-
+    <div class="journal-grid" id="journal-grid"></div>
   </main>
 
-  <footer>
-
-    <div class="footer-logo">
-      蒼 — AOI
+  <div class="upload-panel" id="upload-panel">
+    <div class="upload-panel-header">
+      <p class="section-tag">新しい記録</p>
+      <h2 class="upload-title">記録を追加</h2>
     </div>
+    <input type="text" id="title" placeholder="タイトル" />
+    <input type="text" id="location" placeholder="場所（例：京都、Kyoto）" />
+    <textarea id="description" placeholder="短い説明"></textarea>
+    <textarea id="content" placeholder="記録の内容"></textarea>
+    <input type="text" id="image" placeholder="画像URL" />
+    <button id="upload-btn">公開する →</button>
+  </div>
 
-    <p class="footer-copy">
-      VISUAL JOURNAL ARCHIVE
-    </p>
-
+  <footer id="contact">
+    <div class="footer-logo">蒼 — 写真の旅</div>
+    <p class="footer-copy">© 蒼 Aoi 2026</p>
   </footer>
 
   <script>
     const nav = document.getElementById('nav');
-
     window.addEventListener('scroll', () => {
-
-      if (window.scrollY > 60) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-
+      nav.classList.toggle('scrolled', window.scrollY > 60);
     });
   </script>
 
-  <script type="module" src="journal.js"></script>
+  <script type="module" src="journal-jp.js"></script>
 
 </body>
 </html>
