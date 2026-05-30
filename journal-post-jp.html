@@ -65,3 +65,11 @@
     <div class="footer-logo">蒼 — 写真の旅</div>
     <p class="footer-copy">© 蒼 Aoi 2026</p>
   </footer>
+  <script>
+    const nav = document.getElementById('nav')
+    window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60))
+  </script>
+  <script type="module" src="journal-post-jp.js"></script>
+
+</body>
+</html>
