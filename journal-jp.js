@@ -99,12 +99,49 @@ uploadBtn.addEventListener('click', async () => {
 
   if (!title || !image) { alert('タイトルと画像URLは必須です。'); return }
 
-  uploadBtn.textContent = '公開中...'
+  uploadBtn.textContent = '翻訳中...'
   uploadBtn.disabled = true
+
+  let translated = { title_en: title, description_en: description, location_en: location, content_en: content }
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: `Translate the following fields to natural English. Return ONLY a JSON object with keys: title_en, description_en, location_en, content_en. No markdown, no explanation.
+
+title: ${title}
+description: ${description}
+location: ${location}
+content: ${content}` }]
+      })
+    })
+    const data = await response.json()
+    const text = data.content.map(i => i.text || '').join('')
+    const clean = text.replace(/```json|```/g, '').trim()
+    translated = JSON.parse(clean)
+  } catch (e) {
+    console.error('Translation failed, saving JP only', e)
+  }
+
+  uploadBtn.textContent = '公開中...'
 
   const { error } = await supabase
     .from('journals')
-    .insert([{ title, location, description, content, image }])
+    .insert([{
+      title: translated.title_en,
+      description: translated.description_en,
+      location: translated.location_en,
+      content: translated.content_en,
+      image,
+      title_jp: title,
+      description_jp: description,
+      location_jp: location,
+      content_jp: content
+    }])
 
   uploadBtn.textContent = '公開する →'
   uploadBtn.disabled = false
