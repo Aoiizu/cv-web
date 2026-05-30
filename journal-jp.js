@@ -45,30 +45,28 @@ async function loadJournals() {
     return
   }
 
-data.forEach(post => {
-  const card = document.createElement('div')
-  card.className = 'journal-card'
-  card.dataset.id = post.id
-  card.innerHTML = `
-    <div class="card-image">
-      <img src="${post.image}" alt="${post.title}" loading="lazy" />
-    </div>
-    <div class="card-body">
-      <div class="card-meta">
-        <span class="card-date">${formatDate(post.created_at)}</span>
-        <span class="card-tag">${post.location || 'Journal'}</span>
+  data.forEach(post => {
+    const card = document.createElement('div')
+    card.className = 'journal-card'
+    card.innerHTML = `
+      <div class="card-image">
+        <img src="${post.image}" alt="${post.title_jp || post.title}" loading="lazy" />
       </div>
-      <h3 class="card-title">${post.title}</h3>
-      <p class="card-desc">${post.description}</p>
-      <span class="card-arrow">→</span>
-    </div>
-  `
-  card.addEventListener('click', () => {
-    window.location.href = `/journal-post.html?id=${post.id}`
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">${formatDate(post.created_at)}</span>
+          <span class="card-tag">${post.location_jp || post.location || '記録'}</span>
+        </div>
+        <h3 class="card-title">${post.title_jp || post.title}</h3>
+        <p class="card-desc">${post.description_jp || post.description}</p>
+        <span class="card-arrow">→</span>
+      </div>
+    `
+    card.addEventListener('click', () => {
+      window.location.href = `/journal-post-jp.html?id=${post.id}`
+    })
+    container.appendChild(card)
   })
-  container.appendChild(card)
-})
-
 }
 
 const uploadBtn = document.getElementById('upload-btn')
