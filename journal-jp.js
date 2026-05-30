@@ -4,16 +4,16 @@ const uploadPanel = document.getElementById('upload-panel')
 uploadPanel.style.display = 'none'
 
 const adminBtn = document.createElement('button')
-adminBtn.textContent = 'Admin'
+adminBtn.textContent = '管理者'
 adminBtn.className = 'admin-btn'
 document.body.appendChild(adminBtn)
 
 adminBtn.addEventListener('click', async () => {
-  const email = prompt('Email:')
-  const password = prompt('Password:')
+  const email = prompt('メール:')
+  const password = prompt('パスワード:')
   const { error } = await supabase.auth.signInWithPassword({ email, password })
   if (error) {
-    alert('Wrong credentials')
+    alert('認証に失敗しました')
   } else {
     uploadPanel.style.display = 'flex'
     adminBtn.style.display = 'none'
@@ -41,7 +41,7 @@ async function loadJournals() {
   container.innerHTML = ''
 
   if (!data || data.length === 0) {
-    container.innerHTML = '<div class="empty-state">No entries yet.</div>'
+    container.innerHTML = '<div class="empty-state">まだ記録がありません。</div>'
     return
   }
 
@@ -54,7 +54,7 @@ async function loadJournals() {
         <div class="card-body">
           <div class="card-meta">
             <span class="card-date">${formatDate(post.created_at)}</span>
-            <span class="card-tag">${post.location || 'Journal'}</span>
+            <span class="card-tag">${post.location || '記録'}</span>
           </div>
           <h3 class="card-title">${post.title}</h3>
           <p class="card-desc">${post.description}</p>
@@ -74,16 +74,16 @@ uploadBtn.addEventListener('click', async () => {
   const content = document.getElementById('content').value.trim()
   const image = document.getElementById('image').value.trim()
 
-  if (!title || !image) { alert('Title and image are required.'); return }
+  if (!title || !image) { alert('タイトルと画像URLは必須です。'); return }
 
-  uploadBtn.textContent = 'Publishing...'
+  uploadBtn.textContent = '公開中...'
   uploadBtn.disabled = true
 
   const { error } = await supabase
     .from('journals')
     .insert([{ title, location, description, content, image }])
 
-  uploadBtn.textContent = 'Publish →'
+  uploadBtn.textContent = '公開する →'
   uploadBtn.disabled = false
 
   if (error) { console.error(error); alert(error.message); return }
