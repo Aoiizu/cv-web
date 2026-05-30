@@ -1,4 +1,4 @@
-import { supabase } from './supabase.js'
+import { supabase } from 'https://esm.sh/@supabase/supabase-js@2'
 
 const params = new URLSearchParams(window.location.search)
 const id = params.get('id')
