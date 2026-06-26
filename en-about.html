@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; connect-src *;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — AOI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    .about-hero {
+      padding: 180px 60px 100px;
+      border-bottom: 1px solid var(--line);
+    }
+    .about-hero .section-tag { margin-bottom: 22px; }
+    .about-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.55;
+      letter-spacing: 0.02em;
+      max-width: 760px;
+    }
+    .about-hero h1 em { font-style: normal; color: var(--warm-mid); }
+
+    .about-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .about-main .about-image { overflow: hidden; }
+    .about-main .about-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.78);
+      display: block;
+    }
+    .about-main .about-body {
+      padding: 88px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--cream);
+    }
+    .about-main .about-body p {
+      font-size: 13.5px; line-height: 2.15;
+      color: var(--warm-mid); max-width: 440px;
+      margin-bottom: 18px; letter-spacing: 0.015em;
+    }
+    .about-stats {
+      display: flex; gap: 44px;
+      margin-top: 40px; padding-top: 40px;
+      border-top: 1px solid var(--line);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px; font-weight: 300; color: var(--accent); line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--warm-mid); margin-top: 9px;
+    }
+
+    .gear-section {
+      padding: 100px 60px;
+      border-bottom: 1px solid var(--line);
+    }
+    .gear-section .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 50px;
+    }
+    .gear-section .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing: 0.02em;
+    }
+    .gear-section .section-title em { font-style: normal; color: var(--warm-mid); }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+    }
+    .gear-card {
+      background: var(--cream);
+      padding: 40px 36px;
+      transition: background 0.3s;
+    }
+    .gear-card:hover { background: #efebe2; }
+    .gear-kind {
+      font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .gear-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 19px; font-weight: 300; line-height: 1.5;
+      letter-spacing: 0.01em; margin-bottom: 12px;
+    }
+    .gear-desc {
+      font-size: 12.5px; line-height: 1.95; color: var(--warm-mid);
+      letter-spacing: 0.01em;
+    }
+
+    .philosophy-section {
+      padding: 100px 60px;
+      display: grid; grid-template-columns: 160px 1fr; gap: 88px;
+      border-bottom: 1px solid var(--line);
+    }
+    .philosophy-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(21px, 2.6vw, 34px);
+      font-weight: 200; line-height: 1.85; letter-spacing: 0.01em;
+    }
+    .philosophy-quote em { font-style: normal; color: var(--warm-mid); }
+
+    @media (max-width: 900px) {
+      .about-hero { padding: 140px 24px 64px; }
+      .about-main { grid-template-columns: 1fr; }
+      .about-main .about-body { padding: 56px 28px; }
+      .gear-section { padding: 64px 24px; }
+      .gear-section .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .gear-grid { grid-template-columns: 1fr; }
+      .philosophy-section { padding: 64px 24px; grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" class="scrolled">
+    <a href="/en.html" class="nav-logo">AOI</a>
+    <ul class="nav-center">
+      <li><a href="/en.html">Home</a></li>
+      <li><a href="/enjournal.html">Journal</a></li>
+      <li><a href="/en-about.html">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/about.html" class="lang-btn">JP</a>
+    </div>
+  </nav>
+
+  <section class="about-hero">
+    <div class="section-tag">About</div>
+    <h1>Recording light and time, <br><em>one traveler's archive</em></h1>
+  </section>
+
+  <div class="about-main">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=80&w=1200&auto=format&fit=crop" alt="" />
+    </div>
+    <div class="about-body">
+      <div class="section-tag">Profile</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-weight:200;font-size:clamp(28px,3vw,42px);line-height:1.6;letter-spacing:0.02em;margin:24px 0 30px;">
+        Japan, told through <br><em>photography</em>
+      </h2>
+      <p>My name is Aoi. I'm a photographer and frontend developer traveling between Okinawa and Hokkaido. I continue to document Japan's seasons and nature through both film and digital.</p>
+      <p>This site is not a portfolio of "best work" — it's an honest archive of every place I've visited and everything the light has shown me. Each frame still carries the air and silence of that day.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">13</div>
+          <div class="stat-label">Prefectures</div>
+        </div>
+        <div>
+          <div class="stat-num">100+</div>
+          <div class="stat-label">Photographs</div>
+        </div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">Years</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="gear-section">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Equipment</div>
+        <h2 class="section-title">Gear <em>I use</em></h2>
+      </div>
+    </div>
+    <div class="gear-grid">
+      <div class="gear-card">
+        <div class="gear-kind">Camera</div>
+        <div class="gear-name">Fujifilm X-T5</div>
+        <div class="gear-desc">For everyday records. Its film simulations preserve the light exactly as it was that day.</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Camera</div>
+        <div class="gear-name">Leica M6</div>
+        <div class="gear-desc">35mm film. I love the quiet time it takes to make a single frame.</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Lens</div>
+        <div class="gear-name">Voigtländer 35mm f/1.7</div>
+        <div class="gear-desc">Matches the distance between me and the street, and the people in it. My most-used lens.</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Lens</div>
+        <div class="gear-name">Fujinon XF 23mm f/2</div>
+        <div class="gear-desc">My go-to for capturing landscapes and a wider sense of air and space.</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Film</div>
+        <div class="gear-name">Kodak Portra 400</div>
+        <div class="gear-desc">Soft tones and grain — a texture close to a hazy memory.</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Accessory</div>
+        <div class="gear-name">Peak Design Slide</div>
+        <div class="gear-desc">A strap I trust through long hours of shooting without fatigue.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy-section">
+    <div class="section-tag">Philosophy</div>
+    <p class="philosophy-quote">
+      Not searching for the perfect frame, but leaving <em>proof that I was there</em>. Light never appears the same way twice. So I stop, I look, and I press the shutter. That alone is enough.
+    </p>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-logo">AOI — A Photographic Journey</div>
+    <ul class="footer-links">
+      <li><a href="/enjournal.html">Journal</a></li>
+      <li><a href="/en-about.html">About</a></li>
+      <li><a href="https://www.instagram.com/aoi_izu_/">Instagram</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <span class="footer-copy">© Aoi 2026. All rights reserved.</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>

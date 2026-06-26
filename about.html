@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; connect-src *;">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>について — 蒼 AOI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.ico" />
+
+  <style>
+    .about-hero {
+      padding: 180px 60px 100px;
+      border-bottom: 1px solid var(--line);
+    }
+    .about-hero .section-tag { margin-bottom: 22px; }
+    .about-hero h1 {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(36px, 5vw, 64px);
+      line-height: 1.55;
+      letter-spacing: 0.04em;
+      max-width: 760px;
+    }
+    .about-hero h1 em { font-style: normal; color: var(--warm-mid); }
+
+    .about-main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+    .about-main .about-image { overflow: hidden; }
+    .about-main .about-image img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.78);
+      display: block;
+    }
+    .about-main .about-body {
+      padding: 88px 64px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--cream);
+    }
+    .about-main .about-body p {
+      font-size: 13.5px; line-height: 2.15;
+      color: var(--warm-mid); max-width: 440px;
+      margin-bottom: 18px; letter-spacing: 0.025em;
+    }
+    .about-stats {
+      display: flex; gap: 44px;
+      margin-top: 40px; padding-top: 40px;
+      border-top: 1px solid var(--line);
+    }
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 44px; font-weight: 300; color: var(--accent); line-height: 1;
+    }
+    .stat-label {
+      font-size: 10px; letter-spacing: 0.2em;
+      color: var(--warm-mid); margin-top: 9px;
+    }
+
+    .gear-section {
+      padding: 100px 60px;
+      border-bottom: 1px solid var(--line);
+    }
+    .gear-section .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 50px;
+    }
+    .gear-section .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-weight: 200;
+      font-size: clamp(28px, 3.5vw, 44px);
+      letter-spacing: 0.04em;
+    }
+    .gear-section .section-title em { font-style: normal; color: var(--warm-mid); }
+
+    .gear-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--line);
+    }
+    .gear-card {
+      background: var(--cream);
+      padding: 40px 36px;
+      transition: background 0.3s;
+    }
+    .gear-card:hover { background: #efebe2; }
+    .gear-kind {
+      font-size: 9.5px; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .gear-name {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 19px; font-weight: 300; line-height: 1.5;
+      letter-spacing: 0.02em; margin-bottom: 12px;
+    }
+    .gear-desc {
+      font-size: 12.5px; line-height: 1.95; color: var(--warm-mid);
+      letter-spacing: 0.02em;
+    }
+
+    .philosophy-section {
+      padding: 100px 60px;
+      display: grid; grid-template-columns: 160px 1fr; gap: 88px;
+      border-bottom: 1px solid var(--line);
+    }
+    .philosophy-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(21px, 2.6vw, 34px);
+      font-weight: 200; line-height: 1.85; letter-spacing: 0.03em;
+    }
+    .philosophy-quote em { font-style: normal; color: var(--warm-mid); }
+
+    @media (max-width: 900px) {
+      .about-hero { padding: 140px 24px 64px; }
+      .about-main { grid-template-columns: 1fr; }
+      .about-main .about-body { padding: 56px 28px; }
+      .gear-section { padding: 64px 24px; }
+      .gear-section .section-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+      .gear-grid { grid-template-columns: 1fr; }
+      .philosophy-section { padding: 64px 24px; grid-template-columns: 1fr; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="nav" class="scrolled">
+    <a href="/index.html" class="nav-logo">蒼 — AOI</a>
+    <ul class="nav-center">
+      <li><a href="/index.html">ホーム</a></li>
+      <li><a href="/journal.html">記録</a></li>
+      <li><a href="/about.html">について</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/en.html" class="lang-btn">EN</a>
+    </div>
+  </nav>
+
+  <section class="about-hero">
+    <div class="section-tag">About</div>
+    <h1>光と時間を記録する、<br><em>一人の旅人の記録</em></h1>
+  </section>
+
+  <div class="about-main">
+    <div class="about-image">
+      <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=80&w=1200&auto=format&fit=crop" alt="" />
+    </div>
+    <div class="about-body">
+      <div class="section-tag">Profile</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-weight:200;font-size:clamp(28px,3vw,42px);line-height:1.6;letter-spacing:0.04em;margin:24px 0 30px;">
+        写真で語る<br><em>日本の旅</em>
+      </h2>
+      <p>蒼（Aoi）と申します。沖縄と北海道を旅しながら活動する写真家・フロントエンド開発者です。日本の四季と自然を旅しながら、フィルムとデジタルで記録を続けています。</p>
+      <p>このサイトは、「最高傑作」のポートフォリオではなく、訪れた全ての場所と光が見せてくれた全てのものを正直に記録したアーカイブです。一枚一枚に、その日の空気と静寂が残っています。</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">13</div>
+          <div class="stat-label">都道府県</div>
+        </div>
+        <div>
+          <div class="stat-num">100+</div>
+          <div class="stat-label">写真</div>
+        </div>
+        <div>
+          <div class="stat-num">4</div>
+          <div class="stat-label">年間</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="gear-section">
+    <div class="section-header">
+      <div>
+        <div class="section-tag">Equipment</div>
+        <h2 class="section-title">使用<em>機材</em></h2>
+      </div>
+    </div>
+    <div class="gear-grid">
+      <div class="gear-card">
+        <div class="gear-kind">Camera</div>
+        <div class="gear-name">Fujifilm X-T5</div>
+        <div class="gear-desc">日常の記録に。フィルムシミュレーションが、その日の光をそのまま残してくれる。</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Camera</div>
+        <div class="gear-name">Leica M6</div>
+        <div class="gear-desc">35mmフィルム。一枚を撮るまでの静かな時間が好きだ。</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Lens</div>
+        <div class="gear-name">Voigtländer 35mm f/1.7</div>
+        <div class="gear-desc">街と人の距離感に合わせた、最も使用頻度の高い一本。</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Lens</div>
+        <div class="gear-name">Fujinon XF 23mm f/2</div>
+        <div class="gear-desc">風景と空気感を広く収めるための定番レンズ。</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Film</div>
+        <div class="gear-name">Kodak Portra 400</div>
+        <div class="gear-desc">柔らかい色味と粒子感。曖昧な記憶に近い質感を持つフィルム。</div>
+      </div>
+      <div class="gear-card">
+        <div class="gear-kind">Accessory</div>
+        <div class="gear-name">Peak Design Slide</div>
+        <div class="gear-desc">長時間の撮影でも疲れにくい、信頼しているストラップ。</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="philosophy-section">
+    <div class="section-tag">Philosophy</div>
+    <p class="philosophy-quote">
+      完璧な一枚を探すのではなく、<em>その場にいたという証</em>を残すこと。光は二度と同じ形では現れない。だから、立ち止まり、見つめ、シャッターを切る。それだけで十分だ。
+    </p>
+  </section>
+
+  <footer id="contact">
+    <div class="footer-logo">蒼 — 写真の旅</div>
+    <ul class="footer-links">
+      <li><a href="/journal.html">記録</a></li>
+      <li><a href="/about.html">について</a></li>
+      <li><a href="https://www.instagram.com/aoi_izu_/">Instagram</a></li>
+      <li><a href="#">連絡</a></li>
+    </ul>
+    <span class="footer-copy">© 蒼 Aoi 2026</span>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
+
+</body>
+</html>
