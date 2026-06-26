@@ -162,7 +162,6 @@ const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 const clock = new THREE.Clock();
-
 function animate() {
   requestAnimationFrame(animate);
   mouse.lerp(targetMouse, 0.04);
