@@ -17,6 +17,8 @@ export default defineConfig({
         enjournal: 'enjournal.html',
         journalPost: 'journal-post.html',
         journalPostJp: 'journal-post-jp.html',
+        about: 'about.html',
+        enabout: 'en-about.html',
       }
     }
   }
