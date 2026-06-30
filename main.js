@@ -6,8 +6,8 @@ if (!container) throw new Error('No .hero-right found');
 const W = container.clientWidth;
 const H = container.clientHeight;
 
-const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setSize(W, H);
 renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:1;';
 container.appendChild(renderer.domElement);
@@ -39,7 +39,7 @@ const vertShader = `
 `;
 
 const fragShader = `
-  precision highp float;
+  precision mediump float;
   uniform float uTime;
   uniform vec2  uMouse;
   uniform vec2  uResolution;
@@ -96,7 +96,7 @@ const fragShader = `
   float fbm(vec3 p) {
     float v = 0.0;
     float a = 0.5;
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 4; i++) {
       v += a * snoise(p);
       p  = p * 2.1 + vec3(1.7, 9.2, 3.4);
       a *= 0.5;
@@ -119,7 +119,6 @@ const fragShader = `
 
     float n1 = fbm(p1);
     float n2 = fbm(p2 + vec3(n1 * 1.2));
-    float n3 = fbm(vec3(warpedUv * 3.0 + vec2(n2 * 0.8), t * 0.5));
 
     float ink = fbm(vec3(warpedUv * 2.5 + vec2(n2 * 0.6, n1 * 0.6), t * 0.6));
 
@@ -162,19 +161,45 @@ const mesh = new THREE.Mesh(geometry, material);
 scene.add(mesh);
 
 const clock = new THREE.Clock();
-function animate() {
+
+let isVisible = true;
+const observer = new IntersectionObserver(
+  ([entry]) => { isVisible = entry.isIntersecting; },
+  { threshold: 0 }
+);
+observer.observe(container);
+
+let isTabVisible = true;
+document.addEventListener('visibilitychange', () => {
+  isTabVisible = document.visibilityState === 'visible';
+});
+
+const FRAME_INTERVAL = 1000 / 30;
+let lastFrameTime = 0;
+
+function animate(time) {
   requestAnimationFrame(animate);
+
+  if (!isVisible || !isTabVisible) return;
+
+  if (time - lastFrameTime < FRAME_INTERVAL) return;
+  lastFrameTime = time;
+
   mouse.lerp(targetMouse, 0.04);
-  material.uniforms.uTime.value  = clock.getElapsedTime();
+  material.uniforms.uTime.value = clock.getElapsedTime();
   material.uniforms.uMouse.value.copy(mouse);
   renderer.render(scene, camera);
 }
 
-animate();
+requestAnimationFrame(animate);
 
+let resizeTimeout;
 window.addEventListener('resize', () => {
-  const W2 = container.clientWidth;
-  const H2 = container.clientHeight;
-  renderer.setSize(W2, H2);
-  material.uniforms.uResolution.value.set(W2, H2);
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    const W2 = container.clientWidth;
+    const H2 = container.clientHeight;
+    renderer.setSize(W2, H2);
+    material.uniforms.uResolution.value.set(W2, H2);
+  }, 150);
 });
