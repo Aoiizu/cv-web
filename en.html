@@ -4,12 +4,118 @@
   <meta charset="UTF-8" />
   <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-eval' 'unsafe-inline' https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; font-src 'self' https://fonts.gstatic.com; connect-src *;">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>蒼 — AOI</title>
+  <title>AOI — Okinawa</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/favicon.ico" />
+  <style>
+    .feature-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feature-header {
+      padding: 0 60px 64px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .feature-header .section-tag { margin-bottom: 14px; }
+    .feature-header .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 200; line-height: 1.4; letter-spacing: 0.02em;
+    }
+    .feature-header .section-title em { font-style: normal; color: var(--warm-mid); }
+    .feature-header .section-link {
+      font-size: 10.5px; letter-spacing: 0.22em;
+      color: var(--ink); text-decoration: none;
+      opacity: 0.42; border-bottom: 1px solid currentColor;
+      padding-bottom: 3px; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .feature-header .section-link:hover { opacity: 1; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 0; }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border-top: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .feature-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .feature-item.reverse { direction: rtl; }
+    .feature-item.reverse > * { direction: ltr; }
+
+    .feature-photo {
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #1a1612;
+    }
+    .feature-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.82);
+      transition: transform 0.8s ease, filter 0.5s;
+      display: block;
+    }
+    .feature-item:hover .feature-photo img {
+      transform: scale(1.04);
+      filter: saturate(1.0);
+    }
+
+    .feature-body {
+      background: var(--cream);
+      padding: 56px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px; font-weight: 300;
+      color: var(--warm-light); line-height: 1;
+      margin-bottom: 28px; letter-spacing: 0.02em;
+    }
+    .feature-location {
+      font-size: 9.5px; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .feature-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 200; line-height: 1.65;
+      letter-spacing: 0.02em; margin-bottom: 20px;
+    }
+    .feature-desc {
+      font-size: 13px; line-height: 2.1;
+      color: var(--warm-mid); max-width: 380px;
+      letter-spacing: 0.015em; margin-bottom: 28px;
+    }
+    .feature-meta {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 24px; border-top: 1px solid var(--line);
+    }
+    .feature-date {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid);
+    }
+    .feature-arrow {
+      margin-left: auto; font-size: 16px;
+      color: var(--warm-light);
+      transition: transform 0.3s;
+    }
+    .feature-item:hover .feature-arrow { transform: translateX(6px); }
+
+    @media (max-width: 900px) {
+      .feature-section { padding: 64px 0; }
+      .feature-header { padding: 0 24px 48px; flex-direction: column; align-items: flex-start; gap: 18px; }
+      .feature-item { grid-template-columns: 1fr; direction: ltr; }
+      .feature-item.reverse { direction: ltr; }
+      .feature-body { padding: 36px 24px; }
+      .feature-num { font-size: 40px; margin-bottom: 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -21,7 +127,7 @@
       <li><a href="/en-about.html">About</a></li>
     </ul>
     <div class="nav-right">
-      <a href="/" class="lang-btn">JP</a>
+      <a href="/index.html" class="lang-btn">JP</a>
     </div>
   </nav>
 
@@ -47,11 +153,11 @@
 
     <div class="hero-text">
       <h1 class="hero-title">
-        Chasing<span> light,</span><br>
-        recording<span> Japan's</span><br>
-        landscapes
+        Chasing<span> light</span><br>
+        along<span> Okinawa's</span><br>
+        shoreline
       </h1>
-      <p class="hero-sub">Mountains, forests, sea. A personal archive of moments found in Japan's four seasons and silence.</p>
+      <p class="hero-sub">Sea, coral, silence. A personal archive of moments found along the islands of Okinawa, recorded one frame at a time.</p>
     </div>
 
     <div class="slide-counter" id="slideCounter"><strong>01</strong> / 04</div>
@@ -68,94 +174,67 @@
     <p class="intro-quote">Every frame is a small act of <em>paying attention</em>. A decision to stop, look, and remember. This journey is not about destination. It is about the <em>quality of noticing</em>.</p>
   </div>
 
-  <div id="journal" class="journal-wrap">
-    <div class="section-header">
+  <section id="journal" class="feature-section">
+    <div class="feature-header">
       <div>
         <div class="section-tag">Journal</div>
-        <h2 class="section-title">Travel <em>Records</em></h2>
+        <h2 class="feature-header section-title">Travel <em>Records</em></h2>
       </div>
-      <a href="#" class="section-link">View all records →</a>
+      <a href="/enjournal.html" class="section-link">View all records →</a>
     </div>
 
-    <div class="journal-grid">
+    <div class="feature-list">
 
-      <div class="journal-card">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1400&auto=format&fit=crop" alt="" />
+      <div class="feature-item">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1200&auto=format&fit=crop" alt="" />
         </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-date">2026.04.03</span>
-            <span class="card-tag">Mt. Fuji</span>
+        <div class="feature-body">
+          <div class="feature-num">01</div>
+          <div class="feature-location">Okinawa — Kerama Islands</div>
+          <h3 class="feature-title">The Clearest Water I've Ever Seen</h3>
+          <p class="feature-desc">The water at Zamami was so clear I could see the coral twenty meters below. I stopped shooting and just floated for a while. Some things don't need to be photographed.</p>
+          <div class="feature-meta">
+            <span class="feature-date">2026.05.10</span>
+            <span class="feature-arrow">→</span>
           </div>
-          <h3 class="card-title">Fuji at Dawn</h3>
-          <p class="card-desc">At four in the morning, the lake was still as a mirror.</p>
-          <span class="card-arrow">→</span>
         </div>
       </div>
 
-      <div class="journal-card">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" alt="" />
+      <div class="feature-item reverse">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=1200&auto=format&fit=crop" alt="" />
         </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-date">2025.11.18</span>
-            <span class="card-tag">Kyoto</span>
+        <div class="feature-body">
+          <div class="feature-num">02</div>
+          <div class="feature-location">Okinawa — Naha</div>
+          <h3 class="feature-title">Kokusai Street at Midnight</h3>
+          <p class="feature-desc">After the tourists leave, Naha becomes a different city. The lanterns along Kokusai Street cast long shadows and the air smells of salt and charcoal.</p>
+          <div class="feature-meta">
+            <span class="feature-date">2026.04.28</span>
+            <span class="feature-arrow">→</span>
           </div>
-          <h3 class="card-title">Autumn Arashiyama</h3>
-          <p class="card-desc">Walking the empty paths of Arashiyama in early morning light.</p>
-          <span class="card-arrow">→</span>
         </div>
       </div>
 
-      <div class="journal-card">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop" alt="" />
+      <div class="feature-item">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=80&w=1200&auto=format&fit=crop" alt="" />
         </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-date">2025.10.05</span>
-            <span class="card-tag">Arashiyama</span>
+        <div class="feature-body">
+          <div class="feature-num">03</div>
+          <div class="feature-location">Okinawa — Cape Hedo</div>
+          <h3 class="feature-title">The Northernmost Point</h3>
+          <p class="feature-desc">At Cape Hedo, the Pacific and the East China Sea meet. Standing at the tip of the island at sunrise, I understood why people call Okinawa the edge of Japan.</p>
+          <div class="feature-meta">
+            <span class="feature-date">2026.04.15</span>
+            <span class="feature-arrow">→</span>
           </div>
-          <h3 class="card-title">Bamboo Grove Path</h3>
-          <p class="card-desc">Each time the bamboo swayed, light danced and silence moved.</p>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-
-      <div class="journal-card">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-date">2026.03.28</span>
-            <span class="card-tag">Tokyo</span>
-          </div>
-          <h3 class="card-title">Hanami at Ueno Park</h3>
-          <p class="card-desc">Pink petals floating skyward.</p>
-          <span class="card-arrow">→</span>
-        </div>
-      </div>
-
-      <div class="journal-card">
-        <div class="card-image">
-          <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=800&auto=format&fit=crop" alt="" />
-        </div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-date">2026.01.12</span>
-            <span class="card-tag">Hokkaido</span>
-          </div>
-          <h3 class="card-title">Morning on the Snowfield</h3>
-          <p class="card-desc">A quiet snowfield and soft morning light.</p>
-          <span class="card-arrow">→</span>
         </div>
       </div>
 
     </div>
-  </div>
+  </section>
 
   <div id="about" class="about-section">
     <div class="about-image">
@@ -186,9 +265,10 @@
   <footer id="contact">
     <div class="footer-logo">蒼 — Photography Journey</div>
     <ul class="footer-links">
-      <li><a href="#">Journal</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="/enjournal.html">Journal</a></li>
+      <li><a href="/en-about.html">About</a></li>
       <li><a href="https://www.instagram.com/aoi_izu_/">Instagram</a></li>
+      <li><a href="#">Contact</a></li>
     </ul>
     <span class="footer-copy">© Aoi 2026. All rights reserved.</span>
   </footer>
@@ -225,13 +305,13 @@
     setInterval(() => goTo((current + 1) % slides.length), 5800);
 
     const stripSrcs = [
-      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=420&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=55&w=420&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=420&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=420&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=55&w=420&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1522383225653-ed111181a951?q=55&w=420&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1578637387939-43c525550085?q=55&w=420&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=420&auto=format&fit=crop',
       'https://animalcafes.com/pix/800-kuni-yaho3.jpg',
     ];
 
@@ -242,31 +322,16 @@
       item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
       strip.appendChild(item);
     });
-
-    const beltSrcs = [
-      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=55&w=600&auto=format&fit=crop',
-      'https://animalcafes.com/pix/800-kuni-yaho2.jpg',
-      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=55&w=600&auto=format&fit=crop',
-    ];
-
-    const belt = document.getElementById('belt');
-    [...beltSrcs, ...beltSrcs].forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'belt-item';
-      item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
-      belt.appendChild(item);
-    });
   </script>
-<script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+      }
     }
-  }
-</script>
-<script type="module" src="main.js"></script>
+  </script>
+  <script type="module" src="main.js"></script>
+
 </body>
 </html>
