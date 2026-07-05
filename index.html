@@ -10,6 +10,112 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/favicon.ico" />
+  <style>
+    .feature-section {
+      padding: 100px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .feature-header {
+      padding: 0 60px 64px;
+      display: flex; align-items: flex-end; justify-content: space-between;
+    }
+    .feature-header .section-tag { margin-bottom: 14px; }
+    .feature-header .section-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 200; line-height: 1.4; letter-spacing: 0.04em;
+    }
+    .feature-header .section-title em { font-style: normal; color: var(--warm-mid); }
+    .feature-header .section-link {
+      font-size: 10.5px; letter-spacing: 0.22em;
+      color: var(--ink); text-decoration: none;
+      opacity: 0.42; border-bottom: 1px solid currentColor;
+      padding-bottom: 3px; white-space: nowrap;
+      transition: opacity 0.2s;
+    }
+    .feature-header .section-link:hover { opacity: 1; }
+
+    .feature-list { display: flex; flex-direction: column; gap: 0; }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border-top: 1px solid var(--line);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .feature-item:last-child { border-bottom: 1px solid var(--line); }
+
+    .feature-item.reverse { direction: rtl; }
+    .feature-item.reverse > * { direction: ltr; }
+
+    .feature-photo {
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: #1a1612;
+    }
+    .feature-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+      filter: saturate(0.82);
+      transition: transform 0.8s ease, filter 0.5s;
+      display: block;
+    }
+    .feature-item:hover .feature-photo img {
+      transform: scale(1.04);
+      filter: saturate(1.0);
+    }
+
+    .feature-body {
+      background: var(--cream);
+      padding: 56px 60px;
+      display: flex; flex-direction: column; justify-content: center;
+    }
+    .feature-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 52px; font-weight: 300;
+      color: var(--warm-light); line-height: 1;
+      margin-bottom: 28px; letter-spacing: 0.02em;
+    }
+    .feature-location {
+      font-size: 9.5px; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .feature-title {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(20px, 2.2vw, 30px);
+      font-weight: 200; line-height: 1.65;
+      letter-spacing: 0.04em; margin-bottom: 20px;
+    }
+    .feature-desc {
+      font-size: 13px; line-height: 2.1;
+      color: var(--warm-mid); max-width: 380px;
+      letter-spacing: 0.02em; margin-bottom: 28px;
+    }
+    .feature-meta {
+      display: flex; align-items: center; gap: 16px;
+      padding-top: 24px; border-top: 1px solid var(--line);
+    }
+    .feature-date {
+      font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid);
+    }
+    .feature-arrow {
+      margin-left: auto; font-size: 16px;
+      color: var(--warm-light);
+      transition: transform 0.3s;
+    }
+    .feature-item:hover .feature-arrow { transform: translateX(6px); }
+
+    @media (max-width: 900px) {
+      .feature-section { padding: 64px 0; }
+      .feature-header { padding: 0 24px 48px; flex-direction: column; align-items: flex-start; gap: 18px; }
+      .feature-item { grid-template-columns: 1fr; direction: ltr; }
+      .feature-item.reverse { direction: ltr; }
+      .feature-body { padding: 36px 24px; }
+      .feature-num { font-size: 40px; margin-bottom: 20px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -59,101 +165,76 @@
     <div class="scroll-hint">スクロール</div>
   </section>
 
-      <div class="strip-wrap">
-        <div class="strip" id="strip"></div>
-      </div>
-
-      <div class="intro-section">
-        <div class="section-tag">宣言</div>
-        <p class="intro-quote">すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。</p>
-      </div>
-
-      <div id="journal" class="journal-wrap">
-        <div class="section-header">
-          <div>
-            <div class="section-tag">Journal</div>
-            <h2 class="section-title">旅の<em>記録</em></h2>
-          </div>
-          <a href="#" class="section-link">すべての記録を見る →</a>
-        </div>
-
-        <div class="journal-grid">
-    <div class="journal-card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1400&auto=format&fit=crop" alt="" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">2026.04.03</span>
-          <span class="card-tag">富士山</span>
-        </div>
-        <h3 class="card-title">夜明けの富士</h3>
-        <p class="card-desc">朝四時、湖は鏡のように静かだった。</p>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-
-    <div class="journal-card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=800&auto=format&fit=crop" alt="" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">2025.11.18</span>
-          <span class="card-tag">京都</span>
-        </div>
-        <h3 class="card-title">秋の嵐山</h3>
-        <p class="card-desc">朝の柔らかな光の中、静かな嵐山を歩いた。</p>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-
-    <div class="journal-card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=800&auto=format&fit=crop" alt="" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">2025.10.05</span>
-          <span class="card-tag">嵐山</span>
-        </div>
-        <h3 class="card-title">竹林の小道</h3>
-        <p class="card-desc">竹が揺れるたびに、光と静けさが流れていった。</p>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-
-    <div class="journal-card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1522383225653-ed111181a951?q=80&w=800&auto=format&fit=crop" alt="" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">2026.03.28</span>
-          <span class="card-tag">東京</span>
-        </div>
-        <h3 class="card-title">上野公園の花見</h3>
-        <p class="card-desc">桜の花びらが空へ舞い上がっていた。</p>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-
-    <div class="journal-card">
-      <div class="card-image">
-        <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=800&auto=format&fit=crop" alt="" />
-      </div>
-      <div class="card-body">
-        <div class="card-meta">
-          <span class="card-date">2026.01.12</span>
-          <span class="card-tag">北海道</span>
-        </div>
-        <h3 class="card-title">雪原の朝</h3>
-        <p class="card-desc">静かな雪原に、やさしい朝の光が差し込んでいた。</p>
-        <span class="card-arrow">→</span>
-      </div>
-    </div>
-    </div>
+  <div class="strip-wrap">
+    <div class="strip" id="strip"></div>
   </div>
+
+  <div class="intro-section">
+    <div class="section-tag">宣言</div>
+    <p class="intro-quote">すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。</p>
+  </div>
+
+  <section id="journal" class="feature-section">
+    <div class="feature-header">
+      <div>
+        <div class="section-tag">Journal</div>
+        <h2 class="feature-header section-title">旅の<em>記録</em></h2>
+      </div>
+      <a href="/journal.html" class="section-link">すべての記録を見る →</a>
+    </div>
+
+    <div class="feature-list">
+
+      <div class="feature-item">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1578637387939-43c525550085?q=80&w=1200&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="feature-body">
+          <div class="feature-num">01</div>
+          <div class="feature-location">富士山 — Yamanashi</div>
+          <h3 class="feature-title">夜明けの富士</h3>
+          <p class="feature-desc">朝四時、湖は鏡のように静かだった。霧の中に現れた逆さ富士は、まるで別世界への入り口のようだった。</p>
+          <div class="feature-meta">
+            <span class="feature-date">2026.04.03</span>
+            <span class="feature-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item reverse">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=80&w=1200&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="feature-body">
+          <div class="feature-num">02</div>
+          <div class="feature-location">京都 — Kyoto</div>
+          <h3 class="feature-title">秋の嵐山</h3>
+          <p class="feature-desc">朝の柔らかな光の中、誰もいない嵐山の小道を歩いた。紅葉が静かに揺れていた。</p>
+          <div class="feature-meta">
+            <span class="feature-date">2025.11.18</span>
+            <span class="feature-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-photo">
+          <img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=80&w=1200&auto=format&fit=crop" alt="" />
+        </div>
+        <div class="feature-body">
+          <div class="feature-num">03</div>
+          <div class="feature-location">北海道 — Hokkaido</div>
+          <h3 class="feature-title">雪原の朝</h3>
+          <p class="feature-desc">静かな雪原に、やさしい朝の光が差し込んでいた。北海道の冬は、静寂そのものだった。</p>
+          <div class="feature-meta">
+            <span class="feature-date">2026.01.12</span>
+            <span class="feature-arrow">→</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <div id="about" class="about-section">
     <div class="about-image">
@@ -184,8 +265,8 @@
   <footer id="contact">
     <div class="footer-logo">蒼 — 写真の旅</div>
     <ul class="footer-links">
-      <li><a href="#">記録</a></li>
-      <li><a href="#">について</a></li>
+      <li><a href="/journal.html">記録</a></li>
+      <li><a href="/about.html">について</a></li>
       <li><a href="https://www.instagram.com/aoi_izu_/">Instagram</a></li>
       <li><a href="#">連絡</a></li>
     </ul>
@@ -241,42 +322,16 @@
       item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
       strip.appendChild(item);
     });
-
-    const beltSrcs = [
-      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=55&w=600&auto=format&fit=crop',
-      'https://animalcafes.com/pix/800-kuni-yaho2.jpg',
-      'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=600&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=55&w=600&auto=format&fit=crop',
-    ];
-
-    const belt = document.getElementById('belt');
-    [...beltSrcs, ...beltSrcs].forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'belt-item';
-      item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
-      belt.appendChild(item);
-    });
   </script>
-<script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+      }
     }
-  }
-</script>
-<script type="module" src="main.js"></script>
-</body>
-</html>  
   </script>
-<script type="importmap">
-  {
-    "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
-    }
-  }
-</script>
-<script type="module" src="main.js"></script>
+  <script type="module" src="main.js"></script>
+
 </body>
 </html>
