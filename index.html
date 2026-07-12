@@ -8,128 +8,177 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400;500&family=Noto+Sans+JP:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
   <link rel="icon" href="/favicon.ico" />
   <style>
-    .feature-section {
-      padding: 100px 0;
-      border-bottom: 1px solid var(--line);
+    :root {
+      --white: #faf9f7;
+      --ink: #1a1612;
+      --mid: #6b5d4f;
+      --light: #c8b69c;
+      --accent: #7a3b20;
+      --blue: #4a7fa5;
+      --line: rgba(26,22,18,0.1);
     }
-    .feature-header {
-      padding: 0 60px 64px;
-      display: flex; align-items: flex-end; justify-content: space-between;
-    }
-    .feature-header .section-tag { margin-bottom: 14px; }
-    .feature-header .section-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: clamp(28px, 3.5vw, 44px);
-      font-weight: 200; line-height: 1.4; letter-spacing: 0.04em;
-    }
-    .feature-header .section-title em { font-style: normal; color: var(--warm-mid); }
-    .feature-header .section-link {
-      font-size: 10.5px; letter-spacing: 0.22em;
-      color: var(--ink); text-decoration: none;
-      opacity: 0.42; border-bottom: 1px solid currentColor;
-      padding-bottom: 3px; white-space: nowrap;
-      transition: opacity 0.2s;
-    }
-    .feature-header .section-link:hover { opacity: 1; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--white); color: var(--ink); font-family: 'Noto Sans JP', sans-serif; font-weight: 300; overflow-x: hidden; }
 
-    .feature-list { display: flex; flex-direction: column; gap: 0; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; justify-content: flex-end; align-items: center; padding: 28px 48px; transition: background 0.4s, padding 0.3s; }
+    nav.scrolled { background: rgba(250,249,247,0.96); backdrop-filter: blur(10px); padding: 18px 48px; border-bottom: 1px solid var(--line); }
 
-    .feature-item {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1px;
-      background: var(--line);
-      border-top: 1px solid var(--line);
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    .feature-item:last-child { border-bottom: 1px solid var(--line); }
+    .burger { background: none; border: none; cursor: pointer; display: flex; flex-direction: column; gap: 5px; padding: 4px; z-index: 300; }
+    .burger span { display: block; width: 26px; height: 1.5px; background: #fff; transition: background 0.4s, transform 0.35s, opacity 0.3s; transform-origin: center; }
+    nav.scrolled .burger span { background: var(--ink); }
+    .burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    nav.scrolled .burger.open span { background: var(--ink); }
+    .burger.open span { background: var(--ink); }
 
-    .feature-item.reverse { direction: rtl; }
-    .feature-item.reverse > * { direction: ltr; }
+    .drawer {
+      position: fixed; top: 0; right: 0; z-index: 199;
+      width: 320px; height: 100vh;
+      background: var(--white);
+      display: flex; flex-direction: column;
+      padding: 100px 52px 52px;
+      transform: translateX(100%);
+      transition: transform 0.45s cubic-bezier(0.77,0,0.175,1);
+      border-left: 1px solid var(--line);
+    }
+    .drawer.open { transform: translateX(0); }
 
-    .feature-photo {
-      overflow: hidden;
-      aspect-ratio: 4/3;
-      background: #1a1612;
-    }
-    .feature-photo img {
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(0.82);
-      transition: transform 0.8s ease, filter 0.5s;
-      display: block;
-    }
-    .feature-item:hover .feature-photo img {
-      transform: scale(1.04);
-      filter: saturate(1.0);
-    }
+    .drawer-logo { font-family: 'Noto Serif JP', serif; font-size: 15px; font-weight: 300; letter-spacing: 0.28em; color: var(--ink); text-decoration: none; margin-bottom: 52px; }
+    .drawer-nav { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .drawer-nav li { border-bottom: 1px solid var(--line); }
+    .drawer-nav a { display: block; padding: 20px 0; font-size: 13px; letter-spacing: 0.22em; color: var(--ink); text-decoration: none; opacity: 0.55; transition: opacity 0.2s; }
+    .drawer-nav a:hover { opacity: 1; }
+    .drawer-lang { margin-top: 40px; }
+    .drawer-lang a { font-size: 10px; letter-spacing: 0.28em; color: var(--mid); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 3px; transition: color 0.2s; }
+    .drawer-lang a:hover { color: var(--accent); }
+    .drawer-social { margin-top: auto; font-size: 10px; letter-spacing: 0.22em; color: var(--mid); opacity: 0.5; }
 
-    .feature-body {
-      background: var(--cream);
-      padding: 56px 60px;
-      display: flex; flex-direction: column; justify-content: center;
-    }
-    .feature-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 52px; font-weight: 300;
-      color: var(--warm-light); line-height: 1;
-      margin-bottom: 28px; letter-spacing: 0.02em;
-    }
-    .feature-location {
-      font-size: 9.5px; letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--accent); margin-bottom: 16px;
-    }
-    .feature-title {
-      font-family: 'Noto Serif JP', serif;
-      font-size: clamp(20px, 2.2vw, 30px);
-      font-weight: 200; line-height: 1.65;
-      letter-spacing: 0.04em; margin-bottom: 20px;
-    }
-    .feature-desc {
-      font-size: 13px; line-height: 2.1;
-      color: var(--warm-mid); max-width: 380px;
-      letter-spacing: 0.02em; margin-bottom: 28px;
-    }
-    .feature-meta {
-      display: flex; align-items: center; gap: 16px;
-      padding-top: 24px; border-top: 1px solid var(--line);
-    }
-    .feature-date {
-      font-size: 10px; letter-spacing: 0.2em; color: var(--warm-mid);
-    }
-    .feature-arrow {
-      margin-left: auto; font-size: 16px;
-      color: var(--warm-light);
-      transition: transform 0.3s;
-    }
-    .feature-item:hover .feature-arrow { transform: translateX(6px); }
+    .drawer-overlay { position: fixed; inset: 0; z-index: 198; background: rgba(0,0,0,0.3); opacity: 0; pointer-events: none; transition: opacity 0.4s; }
+    .drawer-overlay.open { opacity: 1; pointer-events: all; }
 
-    @media (max-width: 900px) {
-      .feature-section { padding: 64px 0; }
-      .feature-header { padding: 0 24px 48px; flex-direction: column; align-items: flex-start; gap: 18px; }
-      .feature-item { grid-template-columns: 1fr; direction: ltr; }
-      .feature-item.reverse { direction: ltr; }
-      .feature-body { padding: 36px 24px; }
-      .feature-num { font-size: 40px; margin-bottom: 20px; }
+    .hero { position: relative; width: 100%; height: 100vh; overflow: hidden; }
+    .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.8s ease; }
+    .slide.active { opacity: 1; }
+    .slide img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.06); transition: transform 10s ease; }
+    .slide.active img { transform: scale(1); }
+    .slide-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.55) 100%); }
+    .hero-right { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+
+    .hero-text { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 0 40px; }
+    .hero-logo { font-family: 'Noto Serif JP', serif; font-size: clamp(13px, 1.4vw, 18px); font-weight: 200; letter-spacing: 0.42em; opacity: 0.85; margin-bottom: 36px; text-decoration: none; color: #fff; }
+    .hero-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.45); margin: 0 auto 36px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 0.45em; text-transform: uppercase; opacity: 0.6; margin-bottom: 20px; }
+    .hero-title { font-family: 'Noto Serif JP', serif; font-size: clamp(36px, 5.5vw, 78px); font-weight: 200; line-height: 1.55; letter-spacing: 0.06em; margin-bottom: 28px; }
+    .hero-sub { font-size: 13px; letter-spacing: 0.06em; opacity: 0.68; max-width: 460px; line-height: 2; }
+
+    .slide-dots { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 3; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.35); cursor: pointer; transition: background 0.3s, transform 0.3s; }
+    .dot.active { background: #fff; transform: scale(1.3); }
+
+    .scroll-hint { position: absolute; bottom: 44px; right: 52px; z-index: 3; font-size: 9.5px; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.45); writing-mode: vertical-rl; display: flex; align-items: center; gap: 12px; }
+    .scroll-hint::after { content: ''; width: 1px; height: 36px; background: rgba(255,255,255,0.3); }
+
+    .band-wrap { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .band { display: flex; width: max-content; animation: bandScroll 40s linear infinite; }
+    .band:hover { animation-play-state: paused; }
+    @keyframes bandScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .band-item { flex: none; width: 200px; height: 130px; overflow: hidden; }
+    .band-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8); transition: filter 0.4s, transform 0.5s; }
+    .band-item:hover img { filter: saturate(1.1); transform: scale(1.06); }
+
+    .section-label { font-size: 9.5px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--accent); }
+
+    .journal-section { padding: 90px 48px; border-bottom: 1px solid var(--line); }
+    .journal-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+    .journal-header .section-label { margin-bottom: 16px; }
+    .journal-heading { font-family: 'Noto Serif JP', serif; font-size: clamp(26px, 3vw, 40px); font-weight: 200; line-height: 1.5; letter-spacing: 0.04em; }
+    .view-all { font-size: 11px; letter-spacing: 0.2em; color: var(--ink); text-decoration: none; opacity: 0.4; border-bottom: 1px solid currentColor; padding-bottom: 3px; white-space: nowrap; transition: opacity 0.2s; }
+    .view-all:hover { opacity: 1; }
+
+    .journal-masonry { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px 56px; }
+    .journal-card { cursor: pointer; }
+    .journal-card:nth-child(even) { margin-top: 72px; }
+
+    .card-img-wrap { position: relative; overflow: hidden; margin-bottom: 20px; }
+    .card-img-wrap img { width: 100%; display: block; aspect-ratio: 4/5; object-fit: cover; filter: saturate(0.85); transition: transform 0.7s ease, filter 0.5s; }
+    .journal-card:hover .card-img-wrap img { transform: scale(1.04); filter: saturate(1.05); }
+    .card-location-badge { position: absolute; top: 16px; left: 16px; background: rgba(250,249,247,0.93); font-size: 10px; letter-spacing: 0.2em; padding: 5px 12px; color: var(--ink); }
+
+    .card-quote { font-family: 'Noto Serif JP', serif; font-size: clamp(15px, 1.6vw, 19px); font-weight: 300; line-height: 1.85; letter-spacing: 0.03em; margin-bottom: 14px; color: var(--blue); text-decoration: none; display: block; transition: opacity 0.2s; }
+    .card-quote:hover { opacity: 0.72; }
+    .card-author { font-size: 12px; letter-spacing: 0.1em; color: var(--mid); text-align: right; margin-bottom: 14px; }
+    .card-footer { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; padding-top: 14px; border-top: 1px solid var(--line); }
+    .card-date { font-size: 10px; letter-spacing: 0.15em; color: var(--mid); }
+    .card-tag { font-size: 10px; letter-spacing: 0.1em; color: var(--blue); text-decoration: none; }
+    .card-tag:hover { text-decoration: underline; }
+
+    .belt-wrap { overflow: hidden; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .belt { display: flex; width: max-content; animation: beltScroll 55s linear infinite; }
+    .belt:hover { animation-play-state: paused; }
+    @keyframes beltScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .belt-item { flex: none; width: 300px; height: 200px; overflow: hidden; }
+    .belt-item img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.8); transition: filter 0.4s; }
+    .belt-item:hover img { filter: saturate(1.1); }
+
+    .about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border-bottom: 1px solid var(--line); }
+    .about-img { overflow: hidden; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.78); display: block; }
+    .about-body { padding: 88px 64px; display: flex; flex-direction: column; justify-content: center; background: var(--white); }
+    .about-body .section-label { margin-bottom: 24px; }
+    .about-body h2 { font-family: 'Noto Serif JP', serif; font-size: clamp(28px, 3vw, 44px); font-weight: 200; line-height: 1.65; letter-spacing: 0.04em; margin-bottom: 32px; }
+    .about-body h2 em { font-style: normal; color: var(--mid); }
+    .about-body p { font-size: 13.5px; line-height: 2.15; color: var(--mid); max-width: 420px; margin-bottom: 16px; letter-spacing: 0.025em; }
+    .about-stats { display: flex; gap: 40px; margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--line); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 44px; font-weight: 300; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 9.5px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mid); margin-top: 8px; }
+
+    footer { border-top: 1px solid var(--line); padding: 52px 48px; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: 'Noto Serif JP', serif; font-size: 16px; font-weight: 200; letter-spacing: 0.24em; }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 11px; letter-spacing: 0.2em; color: var(--ink); text-decoration: none; opacity: 0.38; transition: opacity 0.2s; }
+    .footer-links a:hover { opacity: 1; }
+    .footer-copy { font-size: 10.5px; color: var(--mid); opacity: 0.5; }
+
+    @media (max-width: 860px) {
+      nav, nav.scrolled { padding: 16px 24px; }
+      .drawer { width: 100%; }
+      .journal-section { padding: 64px 24px; }
+      .journal-masonry { grid-template-columns: 1fr; gap: 48px; }
+      .journal-card:nth-child(even) { margin-top: 0; }
+      .about-section { grid-template-columns: 1fr; }
+      .about-body { padding: 52px 28px; }
+      footer { padding: 40px 24px; flex-direction: column; gap: 24px; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
     }
   </style>
 </head>
 <body>
 
   <nav id="nav">
-    <a href="/index.html" class="nav-logo">蒼 — AOI</a>
-    <ul class="nav-center">
+    <button class="burger" id="burger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="drawer-overlay" id="drawerOverlay"></div>
+  <div class="drawer" id="drawer">
+    <a href="/index.html" class="drawer-logo">蒼 — AOI</a>
+    <ul class="drawer-nav">
       <li><a href="/index.html">ホーム</a></li>
       <li><a href="/journal.html">記録</a></li>
       <li><a href="/about.html">について</a></li>
+      <li><a href="https://www.instagram.com/aoi_izu_/">Instagram</a></li>
+      <li><a href="#">連絡</a></li>
     </ul>
-    <div class="nav-right">
-      <a href="/en.html" class="lang-btn">EN</a>
+    <div class="drawer-lang">
+      <a href="/en.html">EN — English</a>
     </div>
-  </nav>
+    <div class="drawer-social">© 蒼 Aoi 2026</div>
+  </div>
 
   <section class="hero">
     <div class="slide active">
@@ -148,100 +197,105 @@
       <img src="https://pbs.twimg.com/media/Gz7U6_-bYAAUfo2?format=jpg&name=4096x4096" alt="" />
       <div class="slide-overlay"></div>
     </div>
-
     <div class="hero-right"></div>
-
     <div class="hero-text">
+      <a href="/index.html" class="hero-logo">蒼 — AOI</a>
+      <div class="hero-divider"></div>
+      <div class="hero-eyebrow">写真の旅 — 沖縄</div>
       <h1 class="hero-title">
-        光を<span>追</span>いながら、<br>
-        沖縄の<span>海岸線</span>を<br>
+        光を追いながら、<br>
+        沖縄の海岸線を<br>
         記録する
       </h1>
       <p class="hero-sub">海、珊瑚、静寂。沖縄の島々で出会った瞬間を、一枚一枚丁寧に記録した個人アーカイブ。</p>
     </div>
-
-    <div class="slide-counter" id="slideCounter"><strong>01</strong> / 04</div>
     <div class="slide-dots" id="dots"></div>
     <div class="scroll-hint">スクロール</div>
   </section>
 
-  <div class="strip-wrap">
-    <div class="strip" id="strip"></div>
+  <div class="band-wrap">
+    <div class="band" id="band"></div>
   </div>
 
-  <div class="intro-section">
-    <div class="section-tag">宣言</div>
-    <p class="intro-quote">すべてのフレームは、<em>注意を払う</em>という小さな行為だ。立ち止まり、見つめ、覚えておく決断。この旅は目的地についてではない。<em>気づく質</em>についてだ。</p>
-  </div>
-
-  <section id="journal" class="feature-section">
-    <div class="feature-header">
+  <section class="journal-section" id="journal">
+    <div class="journal-header">
       <div>
-        <div class="section-tag">Journal</div>
-        <h2 class="feature-header section-title">旅の<em>記録</em></h2>
+        <div class="section-label">Journal</div>
+        <h2 class="journal-heading">旅の記録</h2>
       </div>
-      <a href="/journal.html" class="section-link">すべての記録を見る →</a>
+      <a href="/journal.html" class="view-all">すべての記録を見る →</a>
     </div>
+    <div class="journal-masonry">
 
-    <div class="feature-list">
-
-      <div class="feature-item">
-        <div class="feature-photo">
-          <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=1200&auto=format&fit=crop" alt="" />
+      <div class="journal-card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=80&w=900&auto=format&fit=crop" alt="" />
+          <span class="card-location-badge">慶良間諸島</span>
         </div>
-        <div class="feature-body">
-          <div class="feature-num">01</div>
-          <div class="feature-location">沖縄 — 慶良間諸島</div>
-          <h3 class="feature-title">これまで見た中で一番透明な海</h3>
-          <p class="feature-desc">座間味の海は、二十メートル下の珊瑚礁まではっきりと見えた。撮影をやめて、しばらくただ浮かんでいた。写真にしなくていいものもある。</p>
-          <div class="feature-meta">
-            <span class="feature-date">2026.05.10</span>
-            <span class="feature-arrow">→</span>
-          </div>
+        <a href="/journal.html" class="card-quote">「これまで見た中で一番透明な海だった」</a>
+        <div class="card-author">— 蒼</div>
+        <div class="card-footer">
+          <span class="card-date">2026.05.10</span>
+          <a href="#" class="card-tag">#沖縄地域</a>
+          <a href="#" class="card-tag">#海・珊瑚</a>
         </div>
       </div>
 
-      <div class="feature-item reverse">
-        <div class="feature-photo">
-          <img src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=1200&auto=format&fit=crop" alt="" />
+      <div class="journal-card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=80&w=900&auto=format&fit=crop" alt="" />
+          <span class="card-location-badge">那覇市</span>
         </div>
-        <div class="feature-body">
-          <div class="feature-num">02</div>
-          <div class="feature-location">沖縄 — 那覇</div>
-          <h3 class="feature-title">真夜中の国際通り</h3>
-          <p class="feature-desc">観光客が消えた後、那覇は別の顔を見せる。国際通りの提灯が長い影を作り、空気は潮と炭の香りがした。</p>
-          <div class="feature-meta">
-            <span class="feature-date">2026.04.28</span>
-            <span class="feature-arrow">→</span>
-          </div>
+        <a href="/journal.html" class="card-quote">「観光客が消えた後、那覇は別の顔を見せる」</a>
+        <div class="card-author">— 蒼</div>
+        <div class="card-footer">
+          <span class="card-date">2026.04.28</span>
+          <a href="#" class="card-tag">#那覇地域</a>
+          <a href="#" class="card-tag">#夜の街</a>
         </div>
       </div>
 
-      <div class="feature-item">
-        <div class="feature-photo">
-          <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=80&w=1200&auto=format&fit=crop" alt="" />
+      <div class="journal-card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=80&w=900&auto=format&fit=crop" alt="" />
+          <span class="card-location-badge">辺戸岬</span>
         </div>
-        <div class="feature-body">
-          <div class="feature-num">03</div>
-          <div class="feature-location">沖縄 — 辺戸岬</div>
-          <h3 class="feature-title">最北端の岬</h3>
-          <p class="feature-desc">辺戸岬では、太平洋と東シナ海が交わる。日の出に島の先端に立ったとき、沖縄が「日本の果て」と呼ばれる理由が、ようやくわかった気がした。</p>
-          <div class="feature-meta">
-            <span class="feature-date">2026.04.15</span>
-            <span class="feature-arrow">→</span>
-          </div>
+        <a href="/journal.html" class="card-quote">「太平洋と東シナ海が交わる、日本の果て」</a>
+        <div class="card-author">— 蒼</div>
+        <div class="card-footer">
+          <span class="card-date">2026.04.15</span>
+          <a href="#" class="card-tag">#北部地域</a>
+          <a href="#" class="card-tag">#岬・夜明け</a>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <div class="card-img-wrap">
+          <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=80&w=900&auto=format&fit=crop" alt="" />
+          <span class="card-location-badge">石垣島</span>
+        </div>
+        <a href="/journal.html" class="card-quote">「夕暮れ時、海の色が七回変わった」</a>
+        <div class="card-author">— 蒼</div>
+        <div class="card-footer">
+          <span class="card-date">2026.03.22</span>
+          <a href="#" class="card-tag">#八重山地域</a>
+          <a href="#" class="card-tag">#夕暮れ・光</a>
         </div>
       </div>
 
     </div>
   </section>
 
+  <div class="belt-wrap">
+    <div class="belt" id="belt"></div>
+  </div>
+
   <div id="about" class="about-section">
-    <div class="about-image">
+    <div class="about-img">
       <img src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=80&w=1200&auto=format&fit=crop" alt="" />
     </div>
     <div class="about-body">
-      <div class="section-tag">About</div>
+      <div class="section-label">About</div>
       <h2>写真で語る<br><em>日本の旅</em></h2>
       <p>蒼（Aoi）と申します。沖縄と北海道を旅しながら活動する写真家・フロントエンド開発者です。日本の四季と自然を旅しながら、フィルムとデジタルで記録を続けています。</p>
       <p>このサイトは、「最高傑作」のポートフォリオではなく、訪れた全ての場所と光が見せてくれた全てのものを正直に記録したアーカイブです。</p>
@@ -279,32 +333,40 @@
       nav.classList.toggle('scrolled', window.scrollY > 60);
     });
 
+    const burger = document.getElementById('burger');
+    const drawer = document.getElementById('drawer');
+    const overlay = document.getElementById('drawerOverlay');
+
+    function toggleDrawer(open) {
+      burger.classList.toggle('open', open);
+      drawer.classList.toggle('open', open);
+      overlay.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    }
+
+    burger.addEventListener('click', () => toggleDrawer(!drawer.classList.contains('open')));
+    overlay.addEventListener('click', () => toggleDrawer(false));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') toggleDrawer(false); });
+
     const slides = document.querySelectorAll('.slide');
     const dotsEl = document.getElementById('dots');
-    const counterEl = document.getElementById('slideCounter');
     let current = 0;
-
     slides.forEach((_, i) => {
       const d = document.createElement('div');
       d.className = 'dot' + (i === 0 ? ' active' : '');
       d.addEventListener('click', () => goTo(i));
       dotsEl.appendChild(d);
     });
-
-    function pad(n) { return n < 10 ? '0' + n : '' + n; }
-
     function goTo(n) {
       slides[current].classList.remove('active');
       dotsEl.children[current].classList.remove('active');
       current = n;
       slides[current].classList.add('active');
       dotsEl.children[current].classList.add('active');
-      counterEl.innerHTML = '<strong>' + pad(current + 1) + '</strong> / ' + pad(slides.length);
     }
-
     setInterval(() => goTo((current + 1) % slides.length), 5800);
 
-    const stripSrcs = [
+    const bandSrcs = [
       'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=55&w=420&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=55&w=420&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?q=55&w=420&auto=format&fit=crop',
@@ -314,24 +376,31 @@
       'https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?q=55&w=420&auto=format&fit=crop',
       'https://animalcafes.com/pix/800-kuni-yaho3.jpg',
     ];
+    const band = document.getElementById('band');
+    [...bandSrcs, ...bandSrcs].forEach(src => {
+      const el = document.createElement('div');
+      el.className = 'band-item';
+      el.innerHTML = '<img src="' + src + '" alt="" loading="lazy"/>';
+      band.appendChild(el);
+    });
 
-    const strip = document.getElementById('strip');
-    [...stripSrcs, ...stripSrcs].forEach(src => {
-      const item = document.createElement('div');
-      item.className = 'strip-item';
-      item.innerHTML = '<img src="' + src + '" alt="" loading="lazy" />';
-      strip.appendChild(item);
+    const beltSrcs = [
+      'https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1590523277543-a94d2e4eb00b?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1526481280693-3bfa7568e0f3?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?q=55&w=600&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1486299267070-83823f5448dd?q=55&w=600&auto=format&fit=crop',
+    ];
+    const belt = document.getElementById('belt');
+    [...beltSrcs, ...beltSrcs].forEach(src => {
+      const el = document.createElement('div');
+      el.className = 'belt-item';
+      el.innerHTML = '<img src="' + src + '" alt="" loading="lazy"/>';
+      belt.appendChild(el);
     });
   </script>
-
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
-      }
-    }
-  </script>
+  <script type="importmap">{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js" } }</script>
   <script type="module" src="main.js"></script>
-
 </body>
 </html>
