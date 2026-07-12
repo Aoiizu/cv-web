@@ -9,7 +9,7 @@ const H = container.clientHeight;
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 renderer.setSize(W, H);
-renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:1;';
+renderer.domElement.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;z-index:1;opacity:0.15;mix-blend-mode:screen;';
 container.appendChild(renderer.domElement);
 
 const scene = new THREE.Scene();
